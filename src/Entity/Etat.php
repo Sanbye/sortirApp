@@ -6,6 +6,7 @@ use App\Repository\EtatRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EtatRepository::class)]
+
 class Etat
 {
     #[ORM\Id]
@@ -13,7 +14,7 @@ class Etat
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $libelle = null;
 
     public function getId(): ?int

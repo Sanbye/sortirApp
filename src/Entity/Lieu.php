@@ -20,10 +20,10 @@ class Lieu
     #[ORM\Column(length: 255)]
     private ?string $rue = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 6, scale: 3)]
+    #[ORM\Column(type: Types::DECIMAL, precision: 6, scale: 3, nullable: true)]
     private ?string $latitude = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 6, scale: 3)]
+    #[ORM\Column(type: Types::DECIMAL, precision: 6, scale: 3,nullable: true)]
     private ?string $longitude = null;
 
     public function getId(): ?int

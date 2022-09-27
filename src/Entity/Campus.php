@@ -4,8 +4,11 @@ namespace App\Entity;
 
 use App\Repository\CampusRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints\Unique;
 
 #[ORM\Entity(repositoryClass: CampusRepository::class)]
+#[UniqueEntity(fields: ['nom'])]
 class Campus
 {
     #[ORM\Id]
@@ -13,7 +16,8 @@ class Campus
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
+
     private ?string $nom = null;
 
     public function getId(): ?int
