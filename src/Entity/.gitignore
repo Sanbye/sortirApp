@@ -1,0 +1,19 @@
+#ignorer les réglages de PHP Storm
+/.idea/
+
+
+###> Symfony/framewrok-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+###< Symfony.framework-bundle ###
+
+###> Symfony/phpunit-bridge ###
+.phpunit
+.phpunit.result.cache
+/phpunit.xml
+###<Symfony/phpunit-bridge ###
