@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SortieRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -31,6 +33,26 @@ class Sortie
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $infosSortie = null;
+
+    #[ORM\ManyToMany(targetEntity: Participant::class, mappedBy: 'Sorties')]
+    private Collection $Participants;
+
+    #[ORM\ManyToOne(inversedBy: 'Sorties')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Campus $Campus = null;
+
+    #[ORM\ManyToOne(inversedBy: 'Sorties')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Lieu $Lieu = null;
+
+    #[ORM\ManyToOne(inversedBy: 'Sorties')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Etat $Etat = null;
+
+    public function __construct()
+    {
+        $this->Participants = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -105,6 +127,69 @@ class Sortie
     public function setInfosSortie(string $infosSortie): self
     {
         $this->infosSortie = $infosSortie;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Participant>
+     */
+    public function getParticipants(): Collection
+    {
+        return $this->Participants;
+    }
+
+    public function addParticipant(Participant $participant): self
+    {
+        if (!$this->Participants->contains($participant)) {
+            $this->Participants->add($participant);
+            $participant->addSorty($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipant(Participant $participant): self
+    {
+        if ($this->Participants->removeElement($participant)) {
+            $participant->removeSorty($this);
+        }
+
+        return $this;
+    }
+
+    public function getCampus(): ?Campus
+    {
+        return $this->Campus;
+    }
+
+    public function setCampus(?Campus $Campus): self
+    {
+        $this->Campus = $Campus;
+
+        return $this;
+    }
+
+    public function getLieu(): ?Lieu
+    {
+        return $this->Lieu;
+    }
+
+    public function setLieu(?Lieu $Lieu): self
+    {
+        $this->Lieu = $Lieu;
+
+        return $this;
+    }
+
+    public function getEtat(): ?Etat
+    {
+        return $this->Etat;
+    }
+
+    public function setEtat(?Etat $Etat): self
+    {
+        $this->Etat = $Etat;
 
         return $this;
     }

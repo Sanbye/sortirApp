@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ParticipantRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -43,6 +45,18 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private ?bool $administrateur = null;
+
+    #[ORM\ManyToOne(inversedBy: 'Participants')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Campus $Campus = null;
+
+    #[ORM\ManyToMany(targetEntity: Sortie::class, inversedBy: 'Participants')]
+    private Collection $Sorties;
+
+    public function __construct()
+    {
+        $this->Sorties = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -170,6 +184,42 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAdministrateur(bool $administrateur): self
     {
         $this->administrateur = $administrateur;
+
+        return $this;
+    }
+
+    public function getCampus(): ?Campus
+    {
+        return $this->Campus;
+    }
+
+    public function setCampus(?Campus $Campus): self
+    {
+        $this->Campus = $Campus;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Sortie>
+     */
+    public function getSorties(): Collection
+    {
+        return $this->Sorties;
+    }
+
+    public function addSorty(Sortie $sorty): self
+    {
+        if (!$this->Sorties->contains($sorty)) {
+            $this->Sorties->add($sorty);
+        }
+
+        return $this;
+    }
+
+    public function removeSorty(Sortie $sorty): self
+    {
+        $this->Sorties->removeElement($sorty);
 
         return $this;
     }

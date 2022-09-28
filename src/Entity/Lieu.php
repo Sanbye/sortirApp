@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\LieuRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -25,6 +27,18 @@ class Lieu
 
     #[ORM\Column(type: Types::DECIMAL, precision: 6, scale: 3,nullable: true)]
     private ?string $longitude = null;
+
+    #[ORM\OneToMany(mappedBy: 'Lieu', targetEntity: Sortie::class)]
+    private Collection $Sorties;
+
+    #[ORM\ManyToOne(inversedBy: 'Lieux')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Ville $Ville = null;
+
+    public function __construct()
+    {
+        $this->Sorties = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -75,6 +89,48 @@ class Lieu
     public function setLongitude(string $longitude): self
     {
         $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Sortie>
+     */
+    public function getSorties(): Collection
+    {
+        return $this->Sorties;
+    }
+
+    public function addSorty(Sortie $sorty): self
+    {
+        if (!$this->Sorties->contains($sorty)) {
+            $this->Sorties->add($sorty);
+            $sorty->setLieu($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSorty(Sortie $sorty): self
+    {
+        if ($this->Sorties->removeElement($sorty)) {
+            // set the owning side to null (unless already changed)
+            if ($sorty->getLieu() === $this) {
+                $sorty->setLieu(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getVille(): ?Ville
+    {
+        return $this->Ville;
+    }
+
+    public function setVille(?Ville $Ville): self
+    {
+        $this->Ville = $Ville;
 
         return $this;
     }
