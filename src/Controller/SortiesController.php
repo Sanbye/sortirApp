@@ -11,7 +11,7 @@ class SortiesController extends AbstractController
     #[Route('/sorties', name: 'app_sorties')]
     public function afficher(): Response
     {
-        return $this->render('sorties/', [
+        return $this->render('sorties/afficher.html.twig', [
             'controller_name' => 'SortiesController',
         ]);
     }
@@ -19,7 +19,7 @@ class SortiesController extends AbstractController
     #[Route('/sorties/creer', name: 'app_sorties_creer')]
     public function creer(): Response
     {
-        return $this->render('sorties/', [
+        return $this->render('sorties/creer.html.twig', [
             'controller_name' => 'SortiesController',
         ]);
     }
@@ -27,7 +27,7 @@ class SortiesController extends AbstractController
     #[Route('/sorties/modifier', name: 'app_sorties_modifier')]
     public function modifier(): Response
     {
-        return $this->render('sorties/', [
+        return $this->render('sorties/modifier.html.twig', [
             'controller_name' => 'SortiesController',
         ]);
     }
@@ -35,7 +35,7 @@ class SortiesController extends AbstractController
     #[Route('/sorties/annuler', name: 'app_sorties_annuler')]
     public function annuler(): Response
     {
-        return $this->render('sorties/', [
+        return $this->render('sorties/annuler.html.twig', [
             'controller_name' => 'SortiesController',
         ]);
     }
