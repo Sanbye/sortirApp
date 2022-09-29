@@ -34,24 +34,24 @@ class Sortie
     #[ORM\Column(type: Types::TEXT)]
     private ?string $infosSortie = null;
 
-    #[ORM\ManyToMany(targetEntity: Participant::class, mappedBy: 'Sorties')]
-    private Collection $Participants;
+    #[ORM\ManyToMany(targetEntity: Participant::class, mappedBy: 'sorties')]
+    private Collection $participants;
 
-    #[ORM\ManyToOne(inversedBy: 'Sorties')]
+    #[ORM\ManyToOne(inversedBy: 'sorties')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Campus $Campus = null;
 
-    #[ORM\ManyToOne(inversedBy: 'Sorties')]
+    #[ORM\ManyToOne(inversedBy: 'sorties')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Lieu $Lieu = null;
 
-    #[ORM\ManyToOne(inversedBy: 'Sorties')]
+    #[ORM\ManyToOne(inversedBy: 'sorties')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Etat $Etat = null;
+    private ?Etat $etat = null;
 
     public function __construct()
     {
-        $this->Participants = new ArrayCollection();
+        $this->participants = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -136,13 +136,13 @@ class Sortie
      */
     public function getParticipants(): Collection
     {
-        return $this->Participants;
+        return $this->participants;
     }
 
     public function addParticipant(Participant $participant): self
     {
-        if (!$this->Participants->contains($participant)) {
-            $this->Participants->add($participant);
+        if (!$this->participants->contains($participant)) {
+            $this->participants->add($participant);
             $participant->addSorty($this);
         }
 
@@ -151,7 +151,7 @@ class Sortie
 
     public function removeParticipant(Participant $participant): self
     {
-        if ($this->Participants->removeElement($participant)) {
+        if ($this->participants->removeElement($participant)) {
             $participant->removeSorty($this);
         }
 
@@ -184,12 +184,12 @@ class Sortie
 
     public function getEtat(): ?Etat
     {
-        return $this->Etat;
+        return $this->etat;
     }
 
-    public function setEtat(?Etat $Etat): self
+    public function setEtat(?Etat $etat): self
     {
-        $this->Etat = $Etat;
+        $this->etat = $etat;
 
         return $this;
     }

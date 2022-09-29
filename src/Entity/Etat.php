@@ -20,11 +20,11 @@ class Etat
     private ?string $libelle = null;
 
     #[ORM\OneToMany(mappedBy: 'Etat', targetEntity: Sortie::class)]
-    private Collection $Sorties;
+    private Collection $sorties;
 
     public function __construct()
     {
-        $this->Sorties = new ArrayCollection();
+        $this->sorties = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -49,13 +49,13 @@ class Etat
      */
     public function getSorties(): Collection
     {
-        return $this->Sorties;
+        return $this->sorties;
     }
 
     public function addSorty(Sortie $sorty): self
     {
-        if (!$this->Sorties->contains($sorty)) {
-            $this->Sorties->add($sorty);
+        if (!$this->sorties->contains($sorty)) {
+            $this->sorties->add($sorty);
             $sorty->setEtat($this);
         }
 
@@ -64,7 +64,7 @@ class Etat
 
     public function removeSorty(Sortie $sorty): self
     {
-        if ($this->Sorties->removeElement($sorty)) {
+        if ($this->sorties->removeElement($sorty)) {
             // set the owning side to null (unless already changed)
             if ($sorty->getEtat() === $this) {
                 $sorty->setEtat(null);

@@ -23,15 +23,15 @@ class Campus
     private ?string $nom = null;
 
     #[ORM\OneToMany(mappedBy: 'Campus', targetEntity: Participant::class, orphanRemoval: true)]
-    private Collection $Participants;
+    private Collection $participants;
 
     #[ORM\OneToMany(mappedBy: 'Campus', targetEntity: Sortie::class)]
-    private Collection $Sorties;
+    private Collection $sorties;
 
     public function __construct()
     {
-        $this->Participants = new ArrayCollection();
-        $this->Sorties = new ArrayCollection();
+        $this->participants = new ArrayCollection();
+        $this->sorties = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -56,13 +56,13 @@ class Campus
      */
     public function getParticipants(): Collection
     {
-        return $this->Participants;
+        return $this->participants;
     }
 
     public function addParticipant(Participant $participant): self
     {
-        if (!$this->Participants->contains($participant)) {
-            $this->Participants->add($participant);
+        if (!$this->participants->contains($participant)) {
+            $this->participants->add($participant);
             $participant->setCampus($this);
         }
 
@@ -71,7 +71,7 @@ class Campus
 
     public function removeParticipant(Participant $participant): self
     {
-        if ($this->Participants->removeElement($participant)) {
+        if ($this->participants->removeElement($participant)) {
             // set the owning side to null (unless already changed)
             if ($participant->getCampus() === $this) {
                 $participant->setCampus(null);
@@ -86,13 +86,13 @@ class Campus
      */
     public function getSorties(): Collection
     {
-        return $this->Sorties;
+        return $this->sorties;
     }
 
     public function addSorty(Sortie $sorty): self
     {
-        if (!$this->Sorties->contains($sorty)) {
-            $this->Sorties->add($sorty);
+        if (!$this->sorties->contains($sorty)) {
+            $this->sorties->add($sorty);
             $sorty->setCampus($this);
         }
 
@@ -101,7 +101,7 @@ class Campus
 
     public function removeSorty(Sortie $sorty): self
     {
-        if ($this->Sorties->removeElement($sorty)) {
+        if ($this->sorties->removeElement($sorty)) {
             // set the owning side to null (unless already changed)
             if ($sorty->getCampus() === $this) {
                 $sorty->setCampus(null);

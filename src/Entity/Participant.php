@@ -11,7 +11,6 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: ParticipantRepository::class)]
-#[UniqueEntity(fields: ['email'])]
 #[UniqueEntity(fields: ['pseudo'])]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class Participant implements UserInterface, PasswordAuthenticatedUserInterface
@@ -24,14 +23,12 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
-    #[ORM\Column]
-    private array $roles = [];
 
     /**
      * @var string The hashed password
      */
     #[ORM\Column]
-    private ?string $password = null;
+    private ?string $motPasse = null;
 
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
@@ -48,16 +45,16 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?bool $administrateur = null;
 
-    #[ORM\ManyToOne(inversedBy: 'Participants')]
+    #[ORM\ManyToOne(inversedBy: 'participants')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Campus $Campus = null;
+    private ?Campus $campus = null;
 
-    #[ORM\ManyToMany(targetEntity: Sortie::class, inversedBy: 'Participants')]
-    private Collection $Sorties;
+    #[ORM\ManyToMany(targetEntity: Sortie::class, inversedBy: 'participants')]
+    private Collection $sorties;
 
     public function __construct()
     {
-        $this->Sorties = new ArrayCollection();
+        $this->sorties = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -92,18 +89,13 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
-    }
-
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
-
-        return $this;
+        /// !! A modifier !!
+        ///
+        ///$roles = $this->roles;
+        ///// guarantee every user at least has ROLE_USER
+        ///$roles[] = 'ROLE_USER';
+///
+        ///return array_unique($roles);
     }
 
     /**
@@ -111,14 +103,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getPassword(): string
     {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
+        return $this->motPasse;
     }
 
     /**
@@ -207,13 +192,13 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getSorties(): Collection
     {
-        return $this->Sorties;
+        return $this->sorties;
     }
 
     public function addSorty(Sortie $sorty): self
     {
-        if (!$this->Sorties->contains($sorty)) {
-            $this->Sorties->add($sorty);
+        if (!$this->sorties->contains($sorty)) {
+            $this->sorties->add($sorty);
         }
 
         return $this;
@@ -221,7 +206,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeSorty(Sortie $sorty): self
     {
-        $this->Sorties->removeElement($sorty);
+        $this->sorties->removeElement($sorty);
 
         return $this;
     }

@@ -29,15 +29,15 @@ class Lieu
     private ?string $longitude = null;
 
     #[ORM\OneToMany(mappedBy: 'Lieu', targetEntity: Sortie::class)]
-    private Collection $Sorties;
+    private Collection $sorties;
 
     #[ORM\ManyToOne(inversedBy: 'Lieux')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Ville $Ville = null;
+    private ?Ville $ville = null;
 
     public function __construct()
     {
-        $this->Sorties = new ArrayCollection();
+        $this->sorties = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -98,13 +98,13 @@ class Lieu
      */
     public function getSorties(): Collection
     {
-        return $this->Sorties;
+        return $this->sorties;
     }
 
     public function addSorty(Sortie $sorty): self
     {
-        if (!$this->Sorties->contains($sorty)) {
-            $this->Sorties->add($sorty);
+        if (!$this->sorties->contains($sorty)) {
+            $this->sorties->add($sorty);
             $sorty->setLieu($this);
         }
 
@@ -113,7 +113,7 @@ class Lieu
 
     public function removeSorty(Sortie $sorty): self
     {
-        if ($this->Sorties->removeElement($sorty)) {
+        if ($this->sorties->removeElement($sorty)) {
             // set the owning side to null (unless already changed)
             if ($sorty->getLieu() === $this) {
                 $sorty->setLieu(null);
@@ -125,12 +125,12 @@ class Lieu
 
     public function getVille(): ?Ville
     {
-        return $this->Ville;
+        return $this->ville;
     }
 
-    public function setVille(?Ville $Ville): self
+    public function setVille(?Ville $ville): self
     {
-        $this->Ville = $Ville;
+        $this->ville = $ville;
 
         return $this;
     }
