@@ -13,7 +13,7 @@ class MainController extends AbstractController
     public function index(): Response
     {
         $Participant = new Participant();
-        $ParticipantForm = $this->createForm(ParticipantType::class, $Participant);
+        $ParticipantForm = $this->createForm(Participant::class, $Participant);
         return $this->render('main/index.html.twig', ["ParticipantForm" => $ParticipantForm->createView()]);
     }
 }
