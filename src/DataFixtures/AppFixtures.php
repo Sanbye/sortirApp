@@ -85,9 +85,9 @@ class AppFixtures extends Fixture
 
              $participant = new Participant();
              $participant
-                 ->setNom($faker->unique()->firstName())
-                 ->setPrenom($faker->unique()->lastName())
-                 ->setPseudo($faker->unique()->password())
+                 ->setNom($faker->unique()->lastName())
+                 ->setPrenom($faker->unique()->firstName())
+                 ->setPseudo($faker->unique()->word())
                  ->setTelephone("0666666666")
                  ->setEmail($faker->unique()->email())
                  ->setAdministrateur($faker->boolean)

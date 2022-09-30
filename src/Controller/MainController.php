@@ -19,7 +19,6 @@ class MainController extends AbstractController
         $ParticipantForm->handleRequest($request);
 
         if ($ParticipantForm->isSubmitted() && $ParticipantForm->isValid()) {
-            $this->redirectToRoute('/home');
         }
 
         return $this->render('main/index.html.twig', ["ParticipantForm" => $ParticipantForm->createView()]);
