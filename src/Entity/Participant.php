@@ -52,9 +52,13 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Sortie::class, inversedBy: 'participants')]
     private Collection $sorties;
 
+    #[ORM\OneToMany(mappedBy: 'organisateur', targetEntity: Sortie::class)]
+    private Collection $sortieOrganisés;
+
     public function __construct()
     {
         $this->sorties = new ArrayCollection();
+        $this->sortieOrganisés = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -106,6 +110,18 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->motPasse;
     }
 
+    public function getMotPasse(): string
+    {
+        return $this->motPasse;
+    }
+
+    public function setMotPasse(string $motPasse): self
+    {
+        $this->motPasse =$motPasse;
+
+        return $this;
+    }
+
     /**
      * @see UserInterface
      */
@@ -146,7 +162,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setPseudo(string $pseudo): self
     {
-        $this->prenom = $pseudo;
+        $this->pseudo = $pseudo;
 
         return $this;
     }
@@ -177,12 +193,12 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getCampus(): ?Campus
     {
-        return $this->Campus;
+        return $this->campus;
     }
 
-    public function setCampus(?Campus $Campus): self
+    public function setCampus(?Campus $campus): self
     {
-        $this->Campus = $Campus;
+        $this->campus = $campus;
 
         return $this;
     }
@@ -207,6 +223,36 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeSorty(Sortie $sorty): self
     {
         $this->sorties->removeElement($sorty);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Sortie>
+     */
+    public function getSortieOrganisés(): Collection
+    {
+        return $this->sortieOrganisés;
+    }
+
+    public function addSortieOrganis(Sortie $sortieOrganis): self
+    {
+        if (!$this->sortieOrganisés->contains($sortieOrganis)) {
+            $this->sortieOrganisés->add($sortieOrganis);
+            $sortieOrganis->setOrganisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSortieOrganis(Sortie $sortieOrganis): self
+    {
+        if ($this->sortieOrganisés->removeElement($sortieOrganis)) {
+            // set the owning side to null (unless already changed)
+            if ($sortieOrganis->getOrganisateur() === $this) {
+                $sortieOrganis->setOrganisateur(null);
+            }
+        }
 
         return $this;
     }
