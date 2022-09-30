@@ -15,7 +15,7 @@ class LoginType extends AbstractType
     {
         $builder
             ->add('email', TextType::class, ['required' => true])
-            ->add('password', PasswordType::class, ['required' => true]);
+            ->add('motPasse', PasswordType::class, ['required' => true]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
