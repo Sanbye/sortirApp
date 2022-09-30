@@ -13,7 +13,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Entity(repositoryClass: ParticipantRepository::class)]
 #[UniqueEntity(fields: ['pseudo'])]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-class Participant implements UserInterface, PasswordAuthenticatedUserInterface
+class Participant implements UserInterface,
+    PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -53,12 +54,12 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $sorties;
 
     #[ORM\OneToMany(mappedBy: 'organisateur', targetEntity: Sortie::class)]
-    private Collection $sortieOrganises;
+    private Collection $sortieOrganisés;
 
     public function __construct()
     {
         $this->sorties = new ArrayCollection();
-        $this->sortieOrganises = new ArrayCollection();
+        $this->sortieOrganisés = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -93,10 +94,14 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-        //TODO
-        return [];
+        /// !! A modifier !!
+        ///
+       $roles = $this->roles;
+        ///// guarantee every user at least has ROLE_USER
+        ///$roles[] = 'ROLE_USER';
+///
+    return array_unique($roles);
     }
-
 
     /**
      * @see PasswordAuthenticatedUserInterface
@@ -226,27 +231,27 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, Sortie>
      */
-    public function getSortieOrganises(): Collection
+    public function getSortieOrganis(): Collection
     {
-        return $this->sortieOrganises;
+        return $this->sortieOrganis;
     }
 
-    public function addSortieOrganise(Sortie $sortieOrganise): self
+    public function addSortieOrganis(Sortie $sortieOrganis): self
     {
-        if (!$this->sortieOrganises->contains($sortieOrganise)) {
-            $this->sortieOrganises->add($sortieOrganise);
-            $sortieOrganise->setOrganisateur($this);
+        if (!$this->sortieOrganisés->contains($sortieOrganis)) {
+            $this->sortieOrganisés->add($sortieOrganis);
+            $sortieOrganis->setOrganisateur($this);
         }
 
         return $this;
     }
 
-    public function removeSortieOrganise(Sortie $sortieOrganise): self
+    public function removeSortieOrganis(Sortie $sortieOrganis): self
     {
-        if ($this->sortieOrganises->removeElement($sortieOrganise)) {
+        if ($this->sortieOrganisés->removeElement($sortieOrganis)) {
             // set the owning side to null (unless already changed)
-            if ($sortieOrganise->getOrganisateur() === $this) {
-                $sortieOrganise->setOrganisateur(null);
+            if ($sortieOrganis->getOrganisateur() === $this) {
+                $sortieOrganis->setOrganisateur(null);
             }
         }
 

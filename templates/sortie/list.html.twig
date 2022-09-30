@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+
+    <div>
+        <p>Date du jour :  {{ "now"|date("d-m-Y") }}</p>
+        <p>Participant : {{ participant.prenom|capitalize }} {{ participant.nom|first }}.</p>
+    </div>
+
+    <div class="example-wrapper">
+        <h1>Page :  PAGE ACCUEIL </h1>
+
+        {# todoo: formulaire login à ajouter #}
+        <p>TODOO : Afficher la page HOME</p>
+
+    </div>
+{% endblock %}
