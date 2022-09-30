@@ -96,17 +96,22 @@ class Participant implements UserInterface,
     {
         /// !! A modifier !!
         ///
-       $roles = $this->roles;
+        //$roles = $this->roles;
         ///// guarantee every user at least has ROLE_USER
-        ///$roles[] = 'ROLE_USER';
-///
-    return array_unique($roles);
+       // $roles[] = 'ROLE_USER';
+
+    return array('ROLE_USER');
     }
 
     /**
      * @see PasswordAuthenticatedUserInterface
      */
     public function getPassword(): string
+    {
+        return $this->motPasse;
+    }
+
+    public function setPassword(): string
     {
         return $this->motPasse;
     }

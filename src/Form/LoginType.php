@@ -8,6 +8,8 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class LoginType extends AbstractType
 {
@@ -15,8 +17,19 @@ class LoginType extends AbstractType
     {
         $builder
             ->add('email', TextType::class, ['required' => true])
-            ->add('motPasse', PasswordType::class, ['required' => true]);
+            ->add('motPasse', PasswordType::class, [
+
+                'mapped' => false,
+                'attr' => ['autocomplete' => 'new-password'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a password',
+                    ]),
+                ],
+            ])
+        ;
     }
+
 
     public function configureOptions(OptionsResolver $resolver): void
     {

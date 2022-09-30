@@ -11,9 +11,15 @@ use App\Entity\Ville;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
+    private $encodeur;
+    public function __construct(UserPasswordHasherInterface $encodeur) {
+        $this->encodeur = $encodeur;
+    }
+
     public function load(ObjectManager $manager): void
     {
         $faker = Faker\Factory::create('fr_FR');
@@ -91,7 +97,7 @@ class AppFixtures extends Fixture
                  ->setTelephone("0666666666")
                  ->setEmail($faker->unique()->email())
                  ->setAdministrateur($faker->boolean)
-                 ->setMotPasse($faker->password())
+                 ->setMotPasse($this->encodeur->hashPassword($participant, '1234'))
                  ->setCampus($faker->randomElement($campusS));
 
              $manager->persist($participant);
