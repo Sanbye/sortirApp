@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-#[Route('sorties', name: 'sortie_')]
+#[Route('/sorties', name: 'sortie_')]
 class SortieController extends AbstractController
 {
     #[Route('', name: 'list')]
