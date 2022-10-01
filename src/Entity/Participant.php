@@ -13,6 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Entity(repositoryClass: ParticipantRepository::class)]
 #[UniqueEntity(fields: ['pseudo'])]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class Participant implements UserInterface,
     PasswordAuthenticatedUserInterface
 {
@@ -94,11 +95,7 @@ class Participant implements UserInterface,
      */
     public function getRoles(): array
     {
-        /// !! A modifier !!
-        ///
-        //$roles = $this->roles;
-        ///// guarantee every user at least has ROLE_USER
-       // $roles[] = 'ROLE_USER';
+        // TODO
 
     return array('ROLE_USER');
     }

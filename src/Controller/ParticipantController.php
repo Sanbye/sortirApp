@@ -28,19 +28,19 @@ class ParticipantController extends AbstractController
         //}
 
 
-        return $this->render('participant/index.html.twig', [
+        return $this->render('main/index.html.twig', [
             'controller_name' => 'ParticipantController',
             'participant' => $participant,
             'sorties' => $sorties,
         ]);
     }
 
-    #[Route('profil', name: 'monProfil')]
+    #[Route('profil', name: 'profil')]
     public function afficherProfil(ParticipantRepository $participantRepository): Response
     {
         $participant = $this->getUser();
 
-        return $this->render('participant/monProfil.html.twig', [
+        return $this->render('profil/profil.html.twig', [
             'participant' => $participant,
         ]);
     }
