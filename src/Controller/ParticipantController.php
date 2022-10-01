@@ -38,7 +38,7 @@ class ParticipantController extends AbstractController
         ]);
     }
 
-    #[Route('profil', name: 'profil')]
+    #[Route('profil', name: 'profil_afficher')]
     public function afficherProfil(ParticipantRepository $participantRepository): Response
     {
 
