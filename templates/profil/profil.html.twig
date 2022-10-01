@@ -1,9 +1,48 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Profil | {{ parent() }}{% endblock %}
 
 {% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
 
-    <h1>{{ participant.pseudo }}</h1>
+    <div>
+
+
+        <div class="infos">
+
+            <table>
+                <tr>
+                    <th><h2>{{ participant.pseudo }}</h2></th>
+                </tr>
+                <tr>
+                    <th>Prénom : </th>
+                    <td>{{ participant.prenom }}</td>
+                </tr>
+                <tr>
+                    <th>Nom : </th>
+                    <td>{{ participant.nom }}</td>
+                </tr>
+                <tr>
+                    <th>Téléphone : </th>
+                    <td>{{ participant.telephone }}</td>
+                </tr>
+                <tr>
+                    <th>Email : </th>
+                    <td>{{ participant.email }}</td>
+                </tr>
+                <tr>
+                    <th>Campus : </th>
+                    <td>{{ participant.campus.nom}}</td>
+                </tr>
+
+
+            </table>
+
+        </div>
+
+    </div>
 
 {% endblock %}
