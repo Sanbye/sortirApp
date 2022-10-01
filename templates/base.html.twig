@@ -18,26 +18,28 @@
     {% block extrastyles %}{% endblock %}
 </head>
 <body>
-<header>
-    <h1><a href="{{ path('participant_home')}}"><img src="{{ asset('img/logo.png') }}" alt="logo site sortirApp"/></a>sortirApp la famille</h1>
-    {% include('inc/nav.html.twig') %}
-</header>
+    <header>
+        {% block header %}
+        <h1><a href="{{ path('participant_home')}}"><img src="{{ asset('img/logo.png') }}" alt="logo site sortirApp"/></a>SortirApp</h1>
+        {% include('inc/nav.html.twig')%}
+        {% endblock %}
+    </header>
 
 
-{# read and display all flash messages #}
-{% for label, messages in app.flashes %}
-    {% for message in messages %}
-        <div class="flash flash-{{ label }}">
-            {{ message }}
-        </div>
+    {# read and display all flash messages #}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="flash flash-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
     {% endfor %}
-{% endfor %}
 
 
-<main>
-    {% block body %}{% endblock %}
-</main>
-<footer>
-    <div>&copy; {{ "now"|date("Y") }} | SortirApp</div>
-</footer>
+    <main>
+        {% block body %}{% endblock %}
+    </main>
+    <footer>
+        <div>&copy; {{ "now"|date("Y") }} | SortirApp</div>
+    </footer>
 </body>
