@@ -1,3 +1,7 @@
-body {
-    background: mediumspringgreen;
+.infos {
+    display:flex;
+}
+
+.table {
+    display:flex;
 }
