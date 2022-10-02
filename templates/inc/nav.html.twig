@@ -1,10 +1,18 @@
 <nav>
-    <ul>
+    <div class="nav_div">
         {% if app.user %}
-        <li><a href="{{ path('participant_home') }}" title="Accueil">Accueil</a></li>
-        <li><a href="{{ path('participant_profil') }}" title="Mon profil">Mon profil</a></li>
-        <li><a href="{{ path('participant_logout') }}" title="Se déconnecter">Se déconnecter</a></li>
+        <ul>
+            <li>
+                <a href="{{ path('home')}}"><img src="{{ asset('img/logo.png')}}" width="50px" alt="logo sortirApp"/></a>
+            </li>
+        </ul>
+        <ul class = "nav_side">
+            <li><a href="{{ path('home') }}" title="Accueil">Accueil</a></li>
+            <li><a href="{{ path('profil_modifier') }}" title="Mon profil">Mon profil</a></li>
+            <li><a href="{{ path('logout') }}" title="Se déconnecter">Se déconnecter</a></li>
+        </ul>
         {% endif %}
+    </div>
 
         {#
         {% if app.user %}

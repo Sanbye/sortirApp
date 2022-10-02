@@ -5,23 +5,20 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=yes, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <title>{% block title %}SortirApp{% endblock %}</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital@1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
 
-    <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
-    <link rel="icon" href="{{ asset('img/favicon.png') }}">
     {% block extrastyles %}{% endblock %}
 </head>
 <body>
     <header>
         {% block header %}
-        <h1><a href="{{ path('participant_home')}}"><img src="{{ asset('img/logo.png') }}" alt="logo site sortirApp"/></a>SortirApp</h1>
-        {% include('inc/nav.html.twig')%}
+            {% include('inc/nav.html.twig')%}
         {% endblock %}
     </header>
 

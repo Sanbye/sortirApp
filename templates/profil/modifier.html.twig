@@ -4,6 +4,41 @@
 
 {% block body %}
 
-    {{ form(ParticipantForm) }}
+    {{ form_start(ParticipantForm) }}
+
+    <div class="profil_div">
+        <div class="profil_row">
+            {{ form_label(ParticipantForm.pseudo) }}
+            {{ form_widget(ParticipantForm.pseudo) }}
+        </div>
+        <div class="profil_row">
+            {{ form_label(ParticipantForm.prenom) }}
+            {{ form_widget(ParticipantForm.prenom) }}
+        </div>
+        <div class="profil_row">
+            {{ form_label(ParticipantForm.nom) }}
+            {{ form_widget(ParticipantForm.nom) }}
+        </div>
+        <div class="profil_row">
+            {{ form_label(ParticipantForm.telephone) }}
+            {{ form_widget(ParticipantForm.telephone) }}
+        </div>
+        <div class="profil_row">
+            {{ form_label(ParticipantForm.motPasse) }}
+            {{ form_widget(ParticipantForm.motPasse) }}
+        </div>
+        <div class="profil_row">
+            {{ form_label(ParticipantForm.email) }}
+            {{ form_widget(ParticipantForm.email) }}
+        </div>
+        <div class="profil_row">
+            <button class="profil_btn" type="submit">Enregistrer</button>
+            <button class="profil_btn" type="button">
+                <a class="return_btn" href="{{ path('home') }}">Annuler</a>
+            </button>
+        </div>
+    </div>
+
+    {{ form_end(ParticipantForm) }}
 
 {% endblock %}
