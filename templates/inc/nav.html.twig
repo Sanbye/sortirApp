@@ -1,30 +1,14 @@
 <nav>
-    <div class="nav_div">
+    <ul>
         {% if app.user %}
-        <ul>
-            <li>
-                <a href="{{ path('home')}}"><img src="{{ asset('img/logo.png')}}" width="50px" alt="logo sortirApp"/></a>
-            </li>
-        </ul>
-        <ul class = "nav_side">
-            <li><a href="{{ path('home') }}" title="Accueil">Accueil</a></li>
-            <li><a href="{{ path('profil_modifier') }}" title="Mon profil">Mon profil</a></li>
-            <li><a href="{{ path('logout') }}" title="Se déconnecter">Se déconnecter</a></li>
-        </ul>
+            <li><a href="{{ path('sortie_list') }}" title="Accueil">Accueil</a></li>
+            <li><a href="{{ path('participant_monProfil') }}" title="Mon profil">Mon profil</a></li>
+            <li><a href="{{ path('participant_logout') }}" title="Se déconnecter">Se déconnecter</a></li>
         {% endif %}
-    </div>
 
-        {#
-        {% if app.user %}
-            <li><a href="{{ path('serie_create') }}" title="Create a new serie">Create</a></li>
-            <li><a href="{{ path('season_create') }}" title="Create a new season">Create season</a></li>
-            <li><a href="{{ path('app_logout') }}" title="Logout">Logout</a></li>
-            {% if is_granted("ROLE_ADMIN") %}
-                <li><a href="{{ path('admin_dashboard') }}" title="Admin dashboard">Admin</a></li>
-            {% endif %}
-        {% else %}
-            <li><a href="{{ path('app_login') }}" title=login">login</a></li>
-            <li><a href="{{ path('app_register') }}" title="Create account">Register</a></li>
-        {% endif %} #}
+        {% if is_granted("ROLE_ADMIN") %}
+            <li><a href="{{ path('admin_campus') }}" title="Campus">Campus</a></li>
+        {% endif %}
+
     </ul>
 </nav>

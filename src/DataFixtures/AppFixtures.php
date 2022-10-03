@@ -16,7 +16,9 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class AppFixtures extends Fixture
 {
     private $encodeur;
-    public function __construct(UserPasswordHasherInterface $encodeur) {
+
+    public function __construct(UserPasswordHasherInterface $encodeur){
+
         $this->encodeur = $encodeur;
     }
 
@@ -97,7 +99,7 @@ class AppFixtures extends Fixture
                  ->setTelephone("0666666666")
                  ->setEmail($faker->unique()->email())
                  ->setAdministrateur($faker->boolean)
-                 ->setMotPasse($this->encodeur->hashPassword($participant, '1234'))
+                 ->setMotPasse($this->encodeur->hashPassword($participant, "1234"))
                  ->setCampus($faker->randomElement($campusS));
 
              $manager->persist($participant);
