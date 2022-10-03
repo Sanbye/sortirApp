@@ -94,13 +94,13 @@ class Participant implements UserInterface,
      */
     public function getRoles(): array
     {
-        if ($this->administrateur = 0) {
+        if ($this->administrateur) {
 
-            return array('ROLE_USER');
+            return array('ROLE_ADMIN');
 
         }else{
 
-            return array('ROLE_ADMIN');
+            return array('ROLE_USER');
 
         }
     }
