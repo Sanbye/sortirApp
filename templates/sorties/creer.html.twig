@@ -4,6 +4,10 @@
 
 {% block body %}
 
-    {{ form(sortiesForm) }}
+    {{ form_start(sortiesForm) }}
+        <button>Enregistrer</button>
+        <button>Publier</button>
+        <a href={{ path('home') }}><button>Annuler</button></a>
+    {{ form_end(sortiesForm) }}
 
 {% endblock %}
