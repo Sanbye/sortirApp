@@ -1,20 +1,32 @@
 <nav>
     <div class="nav_div">
-        {% if app.user %}
+        {% if is_granted('ROLE_ADMIN') %}
         <ul>
             <li>
                 <a href="{{ path('home')}}"><img src="{{ asset('img/logo.png')}}" width="50px" alt="logo sortirApp"/></a>
             </li>
         </ul>
-        <ul class = "nav_side">
-            <li><a href="{{ path('villes_afficher') }}">Villes</a></li>
+        <ul class = "nav_side_admin">
+            <li><a href="{{ path('admin_campus') }}">Campus</a></li>
+            <li><a href="{{ path('admin_villes') }}">Villes</a></li>
             <li><a href="{{ path('home') }}" title="Accueil">Accueil</a></li>
             <li><a href="{{ path('profil_modifier') }}" title="Mon profil">Mon profil</a></li>
             <li><a href="{{ path('logout') }}" title="Se déconnecter">Se déconnecter</a></li>
         </ul>
+        {% else %}
+            <ul>
+                <li>
+                    <a href="{{ path('home')}}"><img src="{{ asset('img/logo.png')}}" width="50px" alt="logo sortirApp"/></a>
+                </li>
+            </ul>
+            <ul class = "nav_side">
+                <li><a href="{{ path('home') }}" title="Accueil">Accueil</a></li>
+                <li><a href="{{ path('profil_modifier') }}" title="Mon profil">Mon profil</a></li>
+                <li><a href="{{ path('logout') }}" title="Se déconnecter">Se déconnecter</a></li>
+            </ul>
         {% endif %}
     </div>
-
+</nav>
         {#
         {% if app.user %}
             <li><a href="{{ path('serie_create') }}" title="Create a new serie">Create</a></li>
@@ -27,5 +39,3 @@
             <li><a href="{{ path('app_login') }}" title=login">login</a></li>
             <li><a href="{{ path('app_register') }}" title="Create account">Register</a></li>
         {% endif %} #}
-    </ul>
-</nav>
