@@ -4,32 +4,32 @@
 
 {% block body %}
 
-    {{ form_start(participantForm) }}
+    {{ form_start(profilForm) }}
 
     <div class="profil_div">
         <div class="profil_row">
-            {{ form_label(participantForm.pseudo) }}
-            {{ form_widget(participantForm.pseudo) }}
+            {{ form_label(profilForm.pseudo) }}
+            {{ form_widget(profilForm.pseudo) }}
         </div>
         <div class="profil_row">
-            {{ form_label(participantForm.prenom) }}
-            {{ form_widget(participantForm.prenom) }}
+            {{ form_label(profilForm.prenom) }}
+            {{ form_widget(profilForm.prenom) }}
         </div>
         <div class="profil_row">
-            {{ form_label(participantForm.nom) }}
-            {{ form_widget(participantForm.nom) }}
+            {{ form_label(profilForm.nom) }}
+            {{ form_widget(profilForm.nom) }}
         </div>
         <div class="profil_row">
-            {{ form_label(participantForm.telephone) }}
-            {{ form_widget(participantForm.telephone) }}
+            {{ form_label(profilForm.telephone) }}
+            {{ form_widget(profilForm.telephone) }}
         </div>
         <div class="profil_row">
-            {{ form_label(participantForm.motPasse) }}
-            {{ form_widget(participantForm.motPasse) }}
+            <span class="hidden">{{ form_label(profilForm.motPasse) }}</span>
+            {{ form_widget(profilForm.motPasse) }}
         </div>
         <div class="profil_row">
-            {{ form_label(participantForm.email) }}
-            {{ form_widget(participantForm.email) }}
+            {{ form_label(profilForm.email) }}
+            {{ form_widget(profilForm.email) }}
         </div>
         <div class="profil_row">
             <button class="profil_btn" type="submit">Enregistrer</button>
@@ -39,6 +39,6 @@
         </div>
     </div>
 
-    {{ form_end(participantForm) }}
+    {{ form_end(profilForm) }}
 
 {% endblock %}

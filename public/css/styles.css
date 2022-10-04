@@ -7,7 +7,6 @@ body {
 a, a:link {
     text-decoration: none;
     color: cadetblue;
-
 }
 
 /*
@@ -127,7 +126,7 @@ nav, nav ul, ul li {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 250px;
+    width: 260px;
     padding: 1em;
 }
 
@@ -138,4 +137,8 @@ nav, nav ul, ul li {
 
 .return_btn {
     color: black;
+}
+
+.hidden {
+    display: none;
 }
