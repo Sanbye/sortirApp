@@ -54,12 +54,12 @@ class Participant implements UserInterface,
     private Collection $sorties;
 
     #[ORM\OneToMany(mappedBy: 'organisateur', targetEntity: Sortie::class)]
-    private Collection $sortieOrganisés;
+    private Collection $sortieOrganises;
 
     public function __construct()
     {
         $this->sorties = new ArrayCollection();
-        $this->sortieOrganisés = new ArrayCollection();
+        $this->sortieOrganises = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -234,27 +234,27 @@ class Participant implements UserInterface,
     /**
      * @return Collection<int, Sortie>
      */
-    public function getSortieOrganis(): Collection
+    public function getSortieOrganises(): Collection
     {
-        return $this->sortieOrganis;
+        return $this->sortieOrganises;
     }
 
-    public function addSortieOrganis(Sortie $sortieOrganis): self
+    public function addSortieOrganises(Sortie $sortieOrganises): self
     {
-        if (!$this->sortieOrganisés->contains($sortieOrganis)) {
-            $this->sortieOrganisés->add($sortieOrganis);
-            $sortieOrganis->setOrganisateur($this);
+        if (!$this->sortieOrganises->contains($sortieOrganises)) {
+            $this->sortieOrganises->add($sortieOrganises);
+            $sortieOrganises->setOrganisateur($this);
         }
 
         return $this;
     }
 
-    public function removeSortieOrganis(Sortie $sortieOrganis): self
+    public function removeSortieOrganises(Sortie $sortieOrganises): self
     {
-        if ($this->sortieOrganisés->removeElement($sortieOrganis)) {
+        if ($this->sortieOrganises->removeElement($sortieOrganises)) {
             // set the owning side to null (unless already changed)
-            if ($sortieOrganis->getOrganisateur() === $this) {
-                $sortieOrganis->setOrganisateur(null);
+            if ($sortieOrganises->getOrganisateur() === $this) {
+                $sortieOrganises->setOrganisateur(null);
             }
         }
 
