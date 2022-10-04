@@ -3,7 +3,7 @@
         {% if is_granted('ROLE_ADMIN') %}
         <ul>
             <li>
-                <a href="{{ path('home')}}"><img src="{{ asset('img/logo.png')}}" width="50px" alt="logo sortirApp"/></a>
+                <h1><a href="{{ path('login')}}"><img src="{{ asset('img/logo.png') }}" alt="logo site sortirApp"/></a>sortirApp la famille</h1>
             </li>
         </ul>
         <ul class = "nav_side_admin">
@@ -16,7 +16,7 @@
         {% elseif is_granted('ROLE_USER') %}
             <ul>
                 <li>
-                    <a href="{{ path('home')}}"><img src="{{ asset('img/logo.png')}}" width="50px" alt="logo sortirApp"/></a>
+                    <h1><a href="{{ path('login')}}"><img src="{{ asset('img/logo.png') }}" alt="logo site sortirApp"/></a>sortirApp la famille</h1>
                 </li>
             </ul>
             <ul class = "nav_side">
