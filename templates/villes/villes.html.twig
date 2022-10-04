@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Villes | Admin{% endblock %}
+
+{% block body %}
+
+    <div class="sorties">
+        <table class="sorties_table">
+            <tr class="sorties_row">
+                <th class="sorties_column">Ville</th>
+                <th class="sorties_column">Code postal</th>
+                <th class="sorties_column">Actions</th>
+            </tr>
+            {% for villes in villes %}
+            <tr class="sorties_row">
+                <td class="sorties_column">{{ villes.nom }}</td>
+                <td class="sorties_column">{{ villes.codePostal }}</td>
+                <td class="sorties_column">TODO</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock %}

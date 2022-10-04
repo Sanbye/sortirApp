@@ -11,18 +11,8 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/sorties', name: 'sortie_')]
 class SortieController extends AbstractController
 {
-    #[Route('', name: 'list')]
-    public function list(): Response
-    {
-        //$sorties = $sortieRepository->findAll();
-
-        return $this->render('sortie/list.html.twig', [
-           // 'sorties' => $sorties,
-        ]);
-    }
-
-    #[Route('/update/{id}', name: 'update')]
-    public function update(int $id,SortieRepository $sortieRepository): Response
+    #[Route('/modifier', name: 'modifier')]
+    public function update(SortieRepository $sortieRepository): Response
     {
         //$sorties = $sortieRepository->findAll();
 
@@ -31,35 +21,14 @@ class SortieController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'info')]
-    public function selectBy(int $id,SortieRepository $sortieRepository): Response
-    {
-        //$sorties = $sortieRepository->findAll();
-
-        return $this->render('selectBy/update.html.twig', [
-            //'sorties' => $sorties,
-        ]);
-    }
-
-    #[Route('/create', name: 'create')]
+    #[Route('/creer', name: 'creer')]
     public function create(SortieRepository $sortieRepository): Response
     {
         //$sorties = $sortieRepository->findAll();
 
-        return $this->render('sortie/update.html.twig', [
-            //'sorties' => $sorties,
-        ]);
+        $sortie = new Sortie();
+        $sortieForm = $this->createForm(SortieType::class, $sortie);
+
+        return $this->render('sortie/creer.html.twig', ['sortieForm' => $sortieForm->createView()]);
     }
-    #[Route('/delete/{id}', name: 'delete')]
-    public function delete(int $id,SortieRepository $sortieRepository): Response
-    {
-        //$sorties = $sortieRepository->findAll();
-
-        return $this->render('sortie/update.html.twig', [
-            //'sorties' => $sorties,
-        ]);
-    }
-
-
-
 }

@@ -17,7 +17,6 @@ class ProfilController extends AbstractController
     #[Route('profil/afficher', name: 'afficher')]
     public function afficherProfil(ParticipantRepository $participantRepository): Response
     {
-
         $participant = $this->getUser();
 
         return $this->render('profil/profil.html.twig', ['participant' => $participant] );
@@ -26,11 +25,9 @@ class ProfilController extends AbstractController
     #[Route('profil', name: 'modifier')]
     public function modifierProfile(ParticipantRepository $participantRepository): Response
     {
-        $participant = $this->getUser();
-
         $profil = new Participant();
-
         $profilForm = $this->createForm(ProfilType::class, $profil);
-        return $this->render('profil/modifier.html.twig', ["ParticipantForm" => $profilForm->createView()]);
+
+        return $this->render('profil/modifier.html.twig', ["participantForm" => $profilForm->createView()]);
     }
 }
