@@ -12,8 +12,7 @@ class MainController extends AbstractController
 {
     #[Route('home', name: 'home')]
     public function home(ParticipantRepository $participantRepository,
-                         SortieRepository      $sortieRepository
-    ): Response
+                         SortieRepository      $sortieRepository): Response
     {
         $participant = $this->getUser();
         $sorties = $sortieRepository->findAll();
@@ -22,10 +21,16 @@ class MainController extends AbstractController
         //    $nbParticipants = $participants.length;
         //}
 
-        return $this->render('participant/index.html.twig', [
-            'controller_name' => 'ParticipantController',
-            'participant' => $participant,
-            'sorties' => $sorties,
-        ]);
+        if ($participant != null) {
+            return $this->render('main/index.html.twig', [
+                'participant' => $participant,
+                'sorties' => $sorties,
+            ]);
+        }
+
+        else {
+            return $this->redirectToRoute('login');
+        }
+
     }
 }
