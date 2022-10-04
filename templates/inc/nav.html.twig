@@ -13,7 +13,7 @@
             <li><a href="{{ path('profil_modifier') }}" title="Mon profil">Mon profil</a></li>
             <li><a href="{{ path('logout') }}" title="Se déconnecter">Se déconnecter</a></li>
         </ul>
-        {% else %}
+        {% elseif is_granted('ROLE_USER') %}
             <ul>
                 <li>
                     <a href="{{ path('home')}}"><img src="{{ asset('img/logo.png')}}" width="50px" alt="logo sortirApp"/></a>

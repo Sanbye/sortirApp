@@ -22,7 +22,7 @@ class MainController extends AbstractController
         //}
 
         if ($participant != null) {
-            return $this->render('main/campus.html.twig', [
+            return $this->render('main/index.html.twig', [
                 'participant' => $participant,
                 'sorties' => $sorties,
             ]);

@@ -27,6 +27,6 @@ class AdminController extends AbstractController
         $villes = new Ville();
         $villesForm = $this->createForm(VillesType::class, $villes);
 
-        return $this->render('villes/villes.html.twig', ['villes' => $villesRepo, 'villesForm' => $villesForm->createView()]);
+        return $this->render('admin/villes/villes.html.twig', ['villes' => $villesRepo, 'villesForm' => $villesForm->createView()]);
     }
 }
