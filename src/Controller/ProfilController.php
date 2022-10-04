@@ -31,20 +31,37 @@ class ProfilController extends AbstractController
     {
         $participant = $this->getUser();
         $profilForm = $this->createForm(ProfilFormType::class, $participant);
+
         $profilForm->handleRequest($request);
 
         if($profilForm->isSubmitted() && $profilForm->isValid()){
+
             $hashedPassword = $passwordHasher->hashPassword(
                 $participant,
                 $profilForm->get('motPasse')->getData()
             );
             $participant->setMotPasse($hashedPassword);
 
+
             $entityManager->persist($participant);
             $entityManager->flush();
+
             return $this->redirectToRoute('home');
         }
+
         return $this->render('profil/modifier.html.twig',
             ['profilForm' => $profilForm->createView()]);
+    }
+
+    #[Route('profil/{id}', name: 'details')]
+    public function details(int $id, ParticipantRepository $participantRepository): Response
+    {
+
+        $participant = $participantRepository->find($id);
+
+
+        return $this->render('profil/details.html.twig', [
+            "participant" => $participant
+        ]);
     }
 }

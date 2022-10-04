@@ -54,12 +54,12 @@ class Participant implements UserInterface,
     private Collection $sorties;
 
     #[ORM\OneToMany(mappedBy: 'organisateur', targetEntity: Sortie::class)]
-    private Collection $sortieOrganises;
+    private Collection $sortieOrganisés;
 
     public function __construct()
     {
         $this->sorties = new ArrayCollection();
-        $this->sortieOrganises = new ArrayCollection();
+        $this->sortieOrganisés = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -95,13 +95,9 @@ class Participant implements UserInterface,
     public function getRoles(): array
     {
         if ($this->administrateur) {
-
             return array('ROLE_ADMIN');
-
         }else{
-
             return array('ROLE_USER');
-
         }
     }
 

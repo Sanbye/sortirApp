@@ -5,39 +5,14 @@
 {% block body %}
 
     {{ form_start(profilForm) }}
+    {{ form_widget(profilForm) }}
 
-    <div class="profil_div">
-        <div class="profil_row">
-            {{ form_label(profilForm.pseudo) }}
-            {{ form_widget(profilForm.pseudo) }}
-        </div>
-        <div class="profil_row">
-            {{ form_label(profilForm.prenom) }}
-            {{ form_widget(profilForm.prenom) }}
-        </div>
-        <div class="profil_row">
-            {{ form_label(profilForm.nom) }}
-            {{ form_widget(profilForm.nom) }}
-        </div>
-        <div class="profil_row">
-            {{ form_label(profilForm.telephone) }}
-            {{ form_widget(profilForm.telephone) }}
-        </div>
-        <div class="profil_row">
-            <span class="hidden">{{ form_label(profilForm.motPasse) }}</span>
-            {{ form_widget(profilForm.motPasse) }}
-        </div>
-        <div class="profil_row">
-            {{ form_label(profilForm.email) }}
-            {{ form_widget(profilForm.email) }}
-        </div>
         <div class="profil_row">
             <button class="profil_btn" type="submit">Enregistrer</button>
             <button class="profil_btn" type="button">
                 <a class="return_btn" href="{{ path('home') }}">Annuler</a>
             </button>
         </div>
-    </div>
 
     {{ form_end(profilForm) }}
 
