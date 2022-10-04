@@ -14,15 +14,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProfilController extends AbstractController
 {
 
-    #[Route('profil/afficher', name: 'afficher')]
+    #[Route('profil', name: 'afficher')]
     public function afficherProfil(ParticipantRepository $participantRepository): Response
     {
         $participant = $this->getUser();
 
-        return $this->render('profil/profil.html.twig', ['participant' => $participant] );
+        return $this->render('profil/profil.html.twig', ['participant' => $participant]);
     }
 
-    #[Route('profil', name: 'modifier')]
+    #[Route('profil/modifier', name: 'modifier')]
     public function modifierProfile(ParticipantRepository $participantRepository): Response
     {
         $profil = new Participant();

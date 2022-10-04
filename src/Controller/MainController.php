@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Participant;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
