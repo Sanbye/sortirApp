@@ -4,25 +4,25 @@
 
 {% block body %}
 
-             {#INFOS CLIENT#}
+    {#INFOS CLIENT#}
     <div class="main_date">
         <span>Date du jour :  {{ "now"|date("d-m-Y") }}</span>
         <span>Participant : {{ participant.prenom|capitalize }} {{ participant.nom|first }}.</span>
     </div>
 
-            {#FILTRE SORTIES#}
+    {#FILTRE SORTIES#}
     <div>
         <h2>Filtrer les sorties</h2>
         {{ form_start(sortiesForm) }}
         {{ form_widget(sortiesForm) }}
         <div class="profil_row">
-        <button class="profil_btn" type="submit">Rechercher</button>
+            <button class="profil_btn" type="submit">Rechercher</button>
         </div>
         {{ form_end(sortiesForm) }}
     </div>
 
 
-              {#TABLEAU DES SORTIES#}
+    {#TABLEAU DES SORTIES#}
     <div class= "sorties">
         <table class = "sorties_table">
             <tr class = "sorties_row">
@@ -36,16 +36,16 @@
                 <th class = "sorties_column">Actions</th>
             </tr>
             {% for sortie in sorties %}
-            <tr class = "sorties_row">
-                <td class = "sorties_column">{{ sortie.nom }}</td>
-                <td class = "sorties_column">{{ sortie.dateHeureDebut|date("d-m-Y") }}</td>
-                <td class = "sorties_column">{{ sortie.dateLimiteInscription|date("d-m-Y") }}</td>
-                <td class = "sorties_column">0/{{ sortie.nbInscriptionsMax }}</td>
-                <td class = "sorties_column">En cours</td>
-                <td class = "sorties_column">Oui</td>
-                <td class = "sorties_column"><a href="{{ path('profil_details', {'id' : sortie.organisateur.id}) }}" title="voir le profil">{{ sortie.organisateur.nom }} {{ sortie.organisateur.prenom|first }}.</a></td>
-                <td class = "sorties_column">Modifier - Annuler</td>
-            </tr>
+                <tr class = "sorties_row">
+                    <td class = "sorties_column">{{ sortie.nom }}</td>
+                    <td class = "sorties_column">{{ sortie.dateHeureDebut|date("d-m-Y") }}</td>
+                    <td class = "sorties_column">{{ sortie.dateLimiteInscription|date("d-m-Y") }}</td>
+                    <td class = "sorties_column">{{ sortie.participants|length }}/{{ sortie.nbInscriptionsMax }}</td>
+                    <td class = "sorties_column">{{ sortie.etat.libelle }}</td>
+                    <td class = "sorties_column">Oui</td>
+                    <td class = "sorties_column"><a href="{{ path('profil_details', {'id' : sortie.organisateur.id}) }}" title="voir le profil">{{ sortie.organisateur.nom }} {{ sortie.organisateur.prenom|first }}.</a></td>
+                    <td class = "sorties_column">Modifier - Annuler</td>
+                </tr>
             {% endfor %}
         </table>
     </div>

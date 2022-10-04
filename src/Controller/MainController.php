@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MainController extends AbstractController
 {
-    #[Route('home', name: 'home')]
+    #[Route('/', name: 'home')]
     public function home(ParticipantRepository $participantRepository,
                          SortieRepository      $sortieRepository,
                          Request $request,
@@ -37,17 +37,12 @@ class MainController extends AbstractController
 
 
 
-        if ($participant != null) {
             return $this->render('main/index.html.twig', [
                 'participant' => $participant,
                 'sorties' => $sorties,
                 'sortiesForm' => $sortiesForm->createView(),
             ]);
-        }
 
-        else {
-            return $this->redirectToRoute('login');
-        }
 
     }
 }
