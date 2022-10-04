@@ -2,7 +2,8 @@
 
 namespace App\Controller;
 
-use App\Repository\SerieRepository;
+use App\Form\SortiesFormType;
+use App\Repository\SortieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,21 +15,25 @@ class SortieController extends AbstractController
     #[Route('/modifier', name: 'modifier')]
     public function update(SortieRepository $sortieRepository): Response
     {
-        //$sorties = $sortieRepository->findAll();
-
-        return $this->render('sortie/update.html.twig', [
-            //'sorties' => $sorties,
-        ]);
+        return $this->render('sorties/modifier.html.twig', []);
     }
 
     #[Route('/creer', name: 'creer')]
     public function create(SortieRepository $sortieRepository): Response
     {
-        //$sorties = $sortieRepository->findAll();
+        $sorties = new Sortie();
+        $sortiesForm = $this->createForm(SortiesFormType::class, $sorties);
 
-        $sortie = new Sortie();
-        $sortieForm = $this->createForm(SortieType::class, $sortie);
+        return $this->render('sorties/creer.html.twig', [
+            'sortiesForm' => $sortiesForm->createView()
+        ]);
+    }
 
-        return $this->render('sortie/creer.html.twig', ['sortieForm' => $sortieForm->createView()]);
+    #[Route('/annuler', name: 'annuler')]
+    public function cancel(SortieRepository $sortieRepository): Response
+    {
+        $sortiesForm = $this->createForm(SortiesFormType::class);
+
+        return $this->render('sorties/annuler.html.twig', ['sortiesForm' => $sortiesForm->createView()]);
     }
 }

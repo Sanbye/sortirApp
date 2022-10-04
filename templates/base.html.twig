@@ -11,12 +11,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital@1&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-    <link rel="icon" href="{{ asset('img/favicon.png') }}">
     {% block extrastyles %}{% endblock %}
 </head>
 <body>
 <header>
-    <h1><a href="{{ path('login')}}"><img src="{{ asset('img/logo.png') }}" alt="logo site sortirApp"/></a>sortirApp la famille</h1>
     {% include('inc/nav.html.twig') %}
 </header>
 
