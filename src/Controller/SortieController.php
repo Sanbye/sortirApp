@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Sortie;
+use App\Form\CreateSortieType;
 use App\Form\SortiesFormType;
 use App\Repository\SortieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,18 +17,16 @@ class SortieController extends AbstractController
     #[Route('/modifier', name: 'modifier')]
     public function update(SortieRepository $sortieRepository): Response
     {
-        return $this->render('sorties/modifier.html.twig', []);
+        return $this->render('sorties/modifier.html.twig',);
     }
 
     #[Route('/creer', name: 'creer')]
     public function create(SortieRepository $sortieRepository): Response
     {
         $sorties = new Sortie();
-        $sortiesForm = $this->createForm(SortiesFormType::class, $sorties);
+        $sortiesForm = $this->createForm(CreateSortieType::class, $sorties);
 
-        return $this->render('sorties/creer.html.twig', [
-            'sortiesForm' => $sortiesForm->createView()
-        ]);
+        return $this->render('sorties/creer.html.twig', [ 'sortiesForm' => $sortiesForm->createView()]);
     }
 
     #[Route('/annuler', name: 'annuler')]
