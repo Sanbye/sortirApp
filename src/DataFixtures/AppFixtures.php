@@ -27,10 +27,10 @@ class AppFixtures extends Fixture
         $faker = Faker\Factory::create('fr_FR');
 
         $nombreVilles=20;
-        $nombreSorties = 10;
+        $nombreSorties = 30;
         $nombreLieux = $nombreVilles*3;
         $nombreCampus=5;
-        $nombreParticipants = $faker->numberBetween(0,100);
+        $nombreParticipants = $faker->numberBetween(20,100);
         $etats= [];
         $lieux = [];
         $villes= [];
