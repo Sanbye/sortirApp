@@ -5,7 +5,6 @@ namespace App\Form;
 use App\Entity\Campus;
 use App\Entity\Etat;
 use App\Entity\Lieu;
-use App\Entity\Participant;
 use App\Entity\Sortie;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -27,9 +26,8 @@ class CreateSortieType extends AbstractType
             ->add('nbInscriptionsMax', NumberType::class, ['label' => 'Nombre de places : '])
             ->add('duree', NumberType::class, ['label' => 'Durée'])
             ->add('infosSortie', TextareaType::class, ['label' => 'Description et infos : '])
-            ->add('campus', EntityType::class, ['class' => Campus::class, 'choice_label' => 'nom'])
-            ->add('lieu', EntityType::class, ['class' => Lieu::class, 'choice_label' => 'nom'])
-            ->add('etat', EntityType::class, ['class' => Etat::class, 'choice_label' => 'libelle']);
+            ->add('campus', EntityType::class, ['class' => Campus::class, 'choice_label' => 'nom', 'label' => 'Campus : '])
+            ->add('lieu', EntityType::class, ['class' => Lieu::class, 'choice_label' => 'nom', 'label' => 'Lieu : ']);
     }
 
 
