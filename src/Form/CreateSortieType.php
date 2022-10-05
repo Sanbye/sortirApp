@@ -20,14 +20,45 @@ class CreateSortieType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom', TextType::class)
-            ->add('dateHeureDebut', DateType::class, ['html5' => true, 'widget' => 'single_text', 'label' => 'Date et heure de la sortie : '])
-            ->add('dateLimiteInscription', DateType::class, ['html5' => true, 'widget' => 'single_text', 'label' => 'Date limite d\'inscription : '])
-            ->add('nbInscriptionsMax', NumberType::class, ['label' => 'Nombre de places : '])
-            ->add('duree', NumberType::class, ['label' => 'Durée'])
-            ->add('infosSortie', TextareaType::class, ['label' => 'Description et infos : '])
-            ->add('campus', EntityType::class, ['class' => Campus::class, 'choice_label' => 'nom', 'label' => 'Campus : '])
-            ->add('lieu', EntityType::class, ['class' => Lieu::class, 'choice_label' => 'nom', 'label' => 'Lieu : ']);
+            ->add(
+                'nom',
+                TextType::class
+            )
+            ->add(
+                'dateHeureDebut',
+                DateType::class,
+                ['html5' => true, 'widget' => 'single_text', 'label' => 'Date et heure de la sortie : ']
+            )
+            ->add(
+                'dateLimiteInscription',
+                DateType::class,
+                ['html5' => true, 'widget' => 'single_text', 'label' => 'Date limite d\'inscription : ']
+            )
+            ->add(
+                'nbInscriptionsMax',
+                NumberType::class,
+                ['label' => 'Nombre de places : ']
+            )
+            ->add(
+                'duree',
+                NumberType::class,
+                ['label' => 'Durée']
+            )
+            ->add(
+                'infosSortie',
+                TextareaType::class,
+                ['label' => 'Description et infos : ']
+            )
+            ->add(
+                'campus',
+                EntityType::class,
+                ['class' => Campus::class, 'choice_label' => 'nom', 'label' => 'Campus : ']
+            )
+            ->add(
+                'lieu',
+                EntityType::class,
+                ['class' => Lieu::class, 'choice_label' => 'nom', 'label' => 'Lieu : ']
+            );
     }
 
 
