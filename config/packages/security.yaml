@@ -20,7 +20,7 @@ security:
             logout:
                 path: logout
                 # where to redirect after logout
-                # target: participant_login
+                # target: profil_login
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall

@@ -5,9 +5,9 @@ namespace App\Controller;
 use App\Form\AnnulerSortieFormType;
 use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Sortie;
-use App\Form\CreateSortieType;
+use App\Form\CreateFormSortie;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,28 +24,26 @@ class SortieController extends AbstractController
     }
 
     #[Route('/creer', name: 'creer')]
-    public function create(
-        Request $request,
-        EntityManagerInterface $entityManager
-    ): Response {
+    public function create(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        //$sorties = $sortieRepository->findAll();
 
-        $sorties = new Sortie();
-        $organisateur = $this->getUser();
+        $sortie = new Sortie();
+        $sortieCreateForm = $this->createForm(CreateFormSortie::class, $sortie);
 
-        $sortiesForm = $this->createForm(CreateSortieType::class, $sorties);
-        $sortiesForm->handleRequest($request);
+        $sortieCreateForm->handleRequest($request);
 
-        if ($sortiesForm->isSubmitted() && $sortiesForm->isValid()) {
+        if($sortieCreateForm->isSubmitted() && $sortieCreateForm->isValid()){
 
-            $entityManager->persist($sorties);
+
+            $entityManager->persist($sortie);
             $entityManager->flush();
 
             return $this->redirectToRoute('home');
         }
 
         return $this->render('sorties/creer.html.twig', [
-            'organisateur' => $organisateur,
-            'sortiesForm' => $sortiesForm->createView()
+            'sortieCreateForm' => $sortieCreateForm->createView()
         ]);
     }
 

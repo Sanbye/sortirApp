@@ -1,15 +1,48 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Sorties{% endblock %}
+{% block title %}Sorties | Créer une sortie{% endblock %}
 
 {% block body %}
 
-    {{ form_start(sortiesForm) }}
+    {{ form_start(sortieCreateForm) }}
+    <div>
+        {{ form_label(sortieCreateForm.nom) }}
+        {{ form_widget(sortieCreateForm.nom) }}
 
-    <a href="{{ path('home') }}"><button type="submit">Enregistrer</button></a>
-    <a href="{{ path('home') }}"><button type="submit">Publier</button></a>
-    <a href="{{ path('home') }}"><button type="button">Annuler</button></a>
+        {{ form_label(sortieCreateForm.dateHeureDebut) }}
+        {{ form_widget(sortieCreateForm.dateHeureDebut) }}
 
-    {{ form_end(sortiesForm) }}
+        {{ form_label(sortieCreateForm.dateLimiteInscription) }}
+        {{ form_widget(sortieCreateForm.dateLimiteInscription) }}
+
+        {{ form_label(sortieCreateForm.nbInscriptionsMax) }}
+        {{ form_widget(sortieCreateForm.nbInscriptionsMax) }}
+
+        {{ form_label(sortieCreateForm.duree) }}
+        {{ form_widget(sortieCreateForm.duree) }}
+
+        {{ form_label(sortieCreateForm.infosSortie) }}
+        {{ form_widget(sortieCreateForm.infosSortie) }}
+    </div>
+
+    <div>
+        <h2>Campus : {{ app.user.campus.nom }}</h2>
+
+        {{ form_label(sortieCreateForm.Lieu) }}
+        {{ form_widget(sortieCreateForm.Lieu) }}
+
+        <p>Rue : ->getRue()</p>
+        <p>Code postal : ->getCodePostal()</p>
+    </div>
+
+    <div class="profil_row">
+        <button class="profil_btn" type="submit">Enregistrer</button>
+        <button class="profil_btn" type="submit">Publier la sortie</button>
+        <button class="profil_btn" type="button">
+            <a class="return_btn" href="{{ path('home') }}">Annuler</a>
+        </button>
+    </div>
+
+    {{ form_end(sortieCreateForm) }}
 
 {% endblock %}
