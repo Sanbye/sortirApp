@@ -31,13 +31,15 @@
         {{ form_label(sortieCreateForm.Lieu) }}
         {{ form_widget(sortieCreateForm.Lieu) }}
 
-        <p>Rue : ->getRue()</p>
+        <p>Rue : lieu.rue </p>
         <p>Code postal : ->getCodePostal()</p>
     </div>
 
     <div class="profil_row">
-        <button class="profil_btn" type="submit">Enregistrer</button>
-        <button class="profil_btn" type="submit">Publier la sortie</button>
+
+        {{ form_row(sortieCreateForm.enregistrer) }}
+        {{ form_row(sortieCreateForm.publier) }}
+
         <button class="profil_btn" type="button">
             <a class="return_btn" href="{{ path('home') }}">Annuler</a>
         </button>

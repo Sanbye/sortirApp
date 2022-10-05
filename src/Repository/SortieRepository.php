@@ -60,8 +60,10 @@ class SortieRepository extends ServiceEntityRepository
         $queryBuilder->innerJoin('s.participants', 'u');
         $queryBuilder->innerJoin('s.etat', 'e');
 
-        $queryBuilder->andWhere('s.Campus = :campusSelected')
+        if($filtres->getCampus()!=null) {
+            $queryBuilder->andWhere('s.Campus = :campusSelected')
                 ->setParameter('campusSelected', $filtres->getCampus());
+        }
         $queryBuilder->andWhere('s.nom LIKE :searchSelected')
             ->setParameter('searchSelected', '%'.$filtres->getSearch().'%');
         $queryBuilder->andWhere('s.dateHeureDebut  >= :dateStartSelected')

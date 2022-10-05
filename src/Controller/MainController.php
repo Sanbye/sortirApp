@@ -58,7 +58,7 @@ class MainController extends AbstractController
                 $sorties = $sortieRepository->findAll();
             } else {
                 $sorties = $sortieRepository->findAllWithQueries($filtres, $participant);
-                //A REMPLACER PAR UNE REQUETE PERSONNALISEE POUR NOS FILTRES -
+
             }
 
 

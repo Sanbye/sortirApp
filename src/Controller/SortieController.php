@@ -24,7 +24,7 @@ class SortieController extends AbstractController
     }
 
     #[Route('/creer', name: 'creer')]
-    public function create(Request $request, EntityManagerInterface $entityManager): Response
+    public function create(Request $request, EntityManagerInterface $entityManager, EtatRepository $etatRepository): Response
     {
         //$sorties = $sortieRepository->findAll();
 
@@ -35,7 +35,15 @@ class SortieController extends AbstractController
 
         if($sortieCreateForm->isSubmitted() && $sortieCreateForm->isValid()){
 
+            $sortie->setCampus($this->getUser()->getCampus());
 
+            if ($sortieCreateForm->get('enregistrer')->isClicked()){
+                $sortie->setEtat($etatRepository->findOneBy(["libelle" => 'créée']));
+            }elseif($sortieCreateForm->get('publier')->isClicked()){
+                $sortie->setEtat($etatRepository->findOneBy(["libelle" => 'ouverte']));
+            }
+
+            $sortie->setOrganisateur($this->getUser());
             $entityManager->persist($sortie);
             $entityManager->flush();
 
