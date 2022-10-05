@@ -6,9 +6,6 @@
 
     {{ form_start(sortiesForm) }}
 
-    <div class="hidden">{{ form_widget(sortiesForm.etat) }}</div>
-    <div class="hidden">{{ form_widget(sortiesForm.organisateur) }}</div>
-
     <a href="{{ path('home') }}"><button type="submit">Enregistrer</button></a>
     <a href="{{ path('home') }}"><button type="submit">Publier</button></a>
     <a href="{{ path('home') }}"><button type="button">Annuler</button></a>

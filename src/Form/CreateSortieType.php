@@ -28,9 +28,7 @@ class CreateSortieType extends AbstractType
             ->add('duree', NumberType::class, ['label' => 'Durée'])
             ->add('infosSortie', TextareaType::class, ['label' => 'Description et infos : '])
             ->add('campus', EntityType::class, ['class' => Campus::class, 'choice_label' => 'nom'])
-            ->add('lieu', EntityType::class, ['class' => Lieu::class, 'choice_label' => 'nom'])
-            ->add('etat', EntityType::class, ['class' => Etat::class, 'choice_label' => 'id'])
-            ->add('organisateur', EntityType::class, ['class' => Participant::class, 'choice_label' => 'prenom']);
+            ->add('lieu', EntityType::class, ['class' => Lieu::class, 'choice_label' => 'nom']);
     }
 
 

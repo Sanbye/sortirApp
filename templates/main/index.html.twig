@@ -7,8 +7,8 @@
     {#INFOS CLIENT#}
 
     <div class="main_date">
-        <span>Date du jour :  {{ "now" | date("d/m/Y") }}</span>
-        <span>Participant : {{ participant.prenom | capitalize }} {{ participant.nom | first }}.</span>
+        <span>Date du jour :  {{ "now"|date("d-m-Y") }}</span>
+        <span>Participant : {{ app.user.nom|capitalize }} {{ app.user.prenom|first }}.</span>
     </div>
 
     {#FILTRE SORTIES#}
@@ -42,9 +42,24 @@
                     <td class = "sorties_column">{{ sortie.dateLimiteInscription|date("d-m-Y") }}</td>
                     <td class = "sorties_column">{{ sortie.participants|length }}/{{ sortie.nbInscriptionsMax }}</td>
                     <td class = "sorties_column">{{ sortie.etat.libelle }}</td>
-                    <td class = "sorties_column">Oui</td>
+                    <td class = "sorties_column">{% if app.user in sortie.participants == true %}OUI{% endif %}</td>
                     <td class = "sorties_column"><a href="{{ path('profil_details', {'id' : sortie.organisateur.id}) }}" title="voir le profil">{{ sortie.organisateur.nom }} {{ sortie.organisateur.prenom|first }}.</a></td>
-                    <td class = "sorties_column">Modifier - Annuler</td>
+                    <td class = "sorties_column">{% if sortie.organisateur == app.user and sortie.etat.libelle is same as("créée") %}
+                                                     {{ "Modifier - Publier" }}
+                                                 {% else %}
+                                                     {{ "Afficher" }}
+                                                 {% endif %}
+
+                                                 {% if app.user in sortie.participants == true %}
+                                                    {{ "- Se désister" }}
+                                                 {% elseif sortie.etat.libelle is same as("ouverte") %}
+                                                    {{ "- S'inscrire" }}
+                                                 {% endif %}
+
+                                                 {% if sortie.organisateur == app.user and sortie.etat.libelle is same as("ouverte") or sortie.etat.libelle is same as("cloturée")%}
+                                                     {{ "- Annuler" }}
+                                                 {% endif %}</td>
+
                 </tr>
             {% endfor %}
         </table>

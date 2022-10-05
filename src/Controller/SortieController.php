@@ -16,12 +16,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class SortieController extends AbstractController
 {
     #[Route('/modifier', name: 'modifier')]
-    public function update(): Response
+    public function update(SortieRepository $sortieRepository): Response
     {
+        return $this->render('sorties/modifier.html.twig',);
     }
 
     #[Route('/creer', name: 'creer')]
     public function create(
+        SortieRepository $sortieRepository,
         Request $request,
         EntityManagerInterface $entityManager
     ): Response {
