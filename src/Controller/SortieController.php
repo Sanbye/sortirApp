@@ -34,8 +34,6 @@ class SortieController extends AbstractController
             $entityManager->persist($sorties);
             $entityManager->flush();
 
-            $this->addFlash('réussite', 'Votre sortie à bien été crée !');
-
             return $this->redirectToRoute('home');
         }
 
