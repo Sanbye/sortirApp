@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Sortie;
 use App\Form\CreateSortieType;
-use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SortieController extends AbstractController
 {
     #[Route('/modifier', name: 'modifier')]
-    public function update(SortieRepository $sortieRepository): Response
+    public function update(): Response
     {
         return $this->render('sorties/modifier.html.twig',);
     }
@@ -48,7 +47,8 @@ class SortieController extends AbstractController
     }
 
     #[Route('/annuler', name: 'annuler')]
-    public function cancel(SortieRepository $sortieRepository): Response
+    public function cancel(): Response
     {
+        return $this->render('sorties/annuler.html.twig');
     }
 }
