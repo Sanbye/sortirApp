@@ -8,8 +8,6 @@ use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Sortie;
 use App\Form\CreateSortieType;
-use App\Repository\SortieRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -49,11 +47,6 @@ class SortieController extends AbstractController
             'organisateur' => $organisateur,
             'sortiesForm' => $sortiesForm->createView()
         ]);
-    }
-
-    #[Route('/annuler', name: 'annuler')]
-    public function cancel(SortieRepository $sortieRepository): Response
-    {
     }
 
     #[Route('/afficher/{id}',name: 'afficher')]
