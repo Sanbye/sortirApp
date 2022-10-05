@@ -46,7 +46,7 @@ class Sortie
     private ?Lieu $Lieu = null;
 
     #[ORM\ManyToOne(inversedBy: 'sorties')]
-    #[ORM\JoinColumn(nullable: true)]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Etat $etat = null;
 
     #[ORM\ManyToOne(inversedBy: 'sortieOrganisés')]
