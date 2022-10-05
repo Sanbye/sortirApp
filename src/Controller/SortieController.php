@@ -6,6 +6,10 @@ use App\Form\AnnulerSortieFormType;
 use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Sortie;
+use App\Form\CreateSortieType;
+use App\Repository\SortieRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,22 +22,38 @@ class SortieController extends AbstractController
     #[Route('/modifier', name: 'modifier')]
     public function update(SortieRepository $sortieRepository): Response
     {
-        //$sorties = $sortieRepository->findAll();
-
-        return $this->render('sortie/update.html.twig', [
-            //'sorties' => $sorties,
-        ]);
+        return $this->render('sorties/modifier.html.twig',);
     }
 
     #[Route('/creer', name: 'creer')]
-    public function create(SortieRepository $sortieRepository): Response
+    public function create(
+        Request $request,
+        EntityManagerInterface $entityManager
+    ): Response {
+
+        $sorties = new Sortie();
+        $organisateur = $this->getUser();
+
+        $sortiesForm = $this->createForm(CreateSortieType::class, $sorties);
+        $sortiesForm->handleRequest($request);
+
+        if ($sortiesForm->isSubmitted() && $sortiesForm->isValid()) {
+
+            $entityManager->persist($sorties);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('home');
+        }
+
+        return $this->render('sorties/creer.html.twig', [
+            'organisateur' => $organisateur,
+            'sortiesForm' => $sortiesForm->createView()
+        ]);
+    }
+
+    #[Route('/annuler', name: 'annuler')]
+    public function cancel(SortieRepository $sortieRepository): Response
     {
-        //$sorties = $sortieRepository->findAll();
-
-        $sortie = new Sortie();
-        $sortieForm = $this->createForm(SortieType::class, $sortie);
-
-        return $this->render('sortie/creer.html.twig', ['sortieForm' => $sortieForm->createView()]);
     }
 
     #[Route('/afficher/{id}',name: 'afficher')]

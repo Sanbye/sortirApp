@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Controller;
+
 use App\Entity\Participant;
 use App\Form\ProfilFormType;
 use App\Repository\ParticipantRepository;
@@ -24,17 +26,18 @@ class ProfilController extends AbstractController
     }
 
     #[Route('profil/modifier', name: 'modifier')]
-    public function modifierProfile(ParticipantRepository $participantRepository,
-                                    Request $request,
-                                    EntityManagerInterface $entityManager,
-                                    UserPasswordHasherInterface $passwordHasher): Response
-    {
+    public function modifierProfile(
+        ParticipantRepository $participantRepository,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        UserPasswordHasherInterface $passwordHasher
+    ): Response {
         $participant = $this->getUser();
         $profilForm = $this->createForm(ProfilFormType::class, $participant);
 
         $profilForm->handleRequest($request);
 
-        if($profilForm->isSubmitted() && $profilForm->isValid()){
+        if ($profilForm->isSubmitted() && $profilForm->isValid()) {
 
             $hashedPassword = $passwordHasher->hashPassword(
                 $participant,
@@ -49,8 +52,10 @@ class ProfilController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        return $this->render('profil/modifier.html.twig',
-            ['profilForm' => $profilForm->createView()]);
+        return $this->render(
+            'profil/modifier.html.twig',
+            ['profilForm' => $profilForm->createView()]
+        );
     }
 
     #[Route('profil/{id}', name: 'details')]

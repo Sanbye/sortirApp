@@ -4,6 +4,10 @@
 
 {% block body %}
 
+    <header>
+        <h1><a href="{{ path('home')}}"><img src="{{ asset('img/logo.png') }}" alt="logo site sortirApp"/></a>sortirApp la famille</h1>
+    </header>
+
     <form class="login" method="post">
         {% if error %}
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>

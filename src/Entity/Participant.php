@@ -13,7 +13,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Entity(repositoryClass: ParticipantRepository::class)]
 #[UniqueEntity(fields: ['pseudo'])]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-class Participant implements UserInterface,
+class Participant implements
+    UserInterface,
     PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -96,7 +97,7 @@ class Participant implements UserInterface,
     {
         if ($this->administrateur) {
             return array('ROLE_ADMIN');
-        }else{
+        } else {
             return array('ROLE_USER');
         }
     }
@@ -121,7 +122,7 @@ class Participant implements UserInterface,
 
     public function setMotPasse(string $motPasse): self
     {
-        $this->motPasse =$motPasse;
+        $this->motPasse = $motPasse;
 
         return $this;
     }
