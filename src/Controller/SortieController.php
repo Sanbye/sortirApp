@@ -23,7 +23,6 @@ class SortieController extends AbstractController
 
     #[Route('/creer', name: 'creer')]
     public function create(
-        SortieRepository $sortieRepository,
         Request $request,
         EntityManagerInterface $entityManager
     ): Response {
