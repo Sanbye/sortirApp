@@ -29,6 +29,7 @@ class SortieController extends AbstractController
     ): Response {
 
         $sorties = new Sortie();
+        $organisateur = $this->getUser();
 
         $sortiesForm = $this->createForm(CreateSortieType::class, $sorties);
         $sortiesForm->handleRequest($request);
@@ -42,6 +43,7 @@ class SortieController extends AbstractController
         }
 
         return $this->render('sorties/creer.html.twig', [
+            'organisateur' => $organisateur,
             'sortiesForm' => $sortiesForm->createView()
         ]);
     }
