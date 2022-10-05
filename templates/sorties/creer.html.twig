@@ -5,9 +5,14 @@
 {% block body %}
 
     {{ form_start(sortiesForm) }}
-        <button>Enregistrer</button>
-        <button>Publier</button>
-        <a href={{ path('home') }}><button>Annuler</button></a>
+
+    <div class="hidden">{{ form_widget(sortiesForm.etat) }}</div>
+    <div class="hidden">{{ form_widget(sortiesForm.organisateur) }}</div>
+
+    <a href="{{ path('home') }}"><button type="submit">Enregistrer</button></a>
+    <a href="{{ path('home') }}"><button type="submit">Publier</button></a>
+    <a href="{{ path('home') }}"><button type="button">Annuler</button></a>
+
     {{ form_end(sortiesForm) }}
 
 {% endblock %}
