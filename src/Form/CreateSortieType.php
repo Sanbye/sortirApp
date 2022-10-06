@@ -59,7 +59,11 @@ class CreateSortieType extends AbstractType
                 EntityType::class,
                 ['class' => Lieu::class, 'choice_label' => 'nom', 'label' => 'Lieu : ']
             )
-            ->add('etat', EntityType::class, ['class' => Etat::class]);
+            ->add(
+                'etat',
+                EntityType::class,
+                ['class' => Etat::class, 'attr' => ['value' => 'créée']]
+            );
     }
 
 
