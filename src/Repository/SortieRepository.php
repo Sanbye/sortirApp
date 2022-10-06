@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\Etat;
 use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use phpDocumentor\Reflection\Types\True_;
 
 /**
  * @extends ServiceEntityRepository<Sortie>
@@ -53,7 +55,56 @@ class SortieRepository extends ServiceEntityRepository
 //            ->getResult()
 //        ;
 //    }
+    public function findAllWithQueries($filtres,$participant) {
+        $queryBuilder = $this->createQueryBuilder('s');
+        $queryBuilder->innerJoin('s.participants', 'u');
+        $queryBuilder->innerJoin('s.etat', 'e');
 
+        if($filtres->getCampus()!=null) {
+            $queryBuilder->andWhere('s.Campus = :campusSelected')
+                ->setParameter('campusSelected', $filtres->getCampus());
+        }
+        $queryBuilder->andWhere('s.nom LIKE :searchSelected')
+            ->setParameter('searchSelected', '%'.$filtres->getSearch().'%');
+        $queryBuilder->andWhere('s.dateHeureDebut  >= :dateStartSelected')
+            ->setParameter('dateStartSelected', $filtres->getDateStart());
+        $queryBuilder->andWhere('s.dateHeureDebut <= :dateEndSelected')
+            ->setParameter('dateEndSelected', $filtres->getDateEnd());
+
+            // CHOICE ORGANISATEUR
+        if($filtres->getChoiceOrganisateur()==true) {
+            $queryBuilder->andWhere('s.organisateur = (:participant)')
+                ->setParameter('participant', $participant);
+        }
+
+            // CHOICE INSCRIT
+        if($filtres->getChoiceInscrit()==true) {
+            $queryBuilder->andWhere(':participant MEMBER OF s.participants')
+                ->setParameter('participant', $participant);
+        }
+
+            // CHOICE NO INSCRIT
+        if($filtres->getChoiceNoInscrit()==true) {
+            $queryBuilder->andWhere(':participant NOT MEMBER OF s.participants')
+                ->setParameter('participant', $participant);
+        }
+
+        // CHOICE SORTIES END
+        if($filtres->getChoiceEnd()==true) {
+            $queryBuilder->andWhere('e.id = 17');
+        }
+
+        //$queryBuilder->andWhere('s.vote > 7');
+        //$queryBuilder->addOrderBy('s.popularity', 'DESC');
+        $query = $queryBuilder->getQuery();
+
+        //$query->setMaxResults(50);
+        //$paginator = new Paginator($query);
+        $results = $query->getResult();
+
+        // return $paginator;
+        return $results;
+    }
 //    public function findOneBySomeField($value): ?sortie
 //    {
 //        return $this->createQueryBuilder('s')
@@ -64,17 +115,4 @@ class SortieRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-    public function findAllWithQueries($campusSelected) {
-        $queryBuilder = $this->createQueryBuilder('s');
-        $queryBuilder->andWhere('s.Campus = :campusSelected')
-            ->setParameter('campusSelected', $campusSelected);
-        //$queryBuilder->andWhere('s.vote > 7');
-        //$queryBuilder->addOrderBy('s.popularity', 'DESC');
-        $query = $queryBuilder->getQuery();
-        //$query->setMaxResults(50);
-        //$paginator = new Paginator($query);
-        $results = $query->getResult();
-        // return $paginator;
-        return $results;
-    }
 }

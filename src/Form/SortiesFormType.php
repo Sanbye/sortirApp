@@ -6,7 +6,7 @@ use App\Entity\Campus;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,27 +22,32 @@ class SortiesFormType extends AbstractType
         'choice_label' => 'nom',
         'label' => 'Campus : '
             ])
-           ->add('search', SearchType::class, ['label' => 'Le nom de la sortie contient : '])
-           ->add('dateStart', DateType::class, [  'html5' => true,
+           ->add('search', SearchType::class, ['label' => 'Le nom de la sortie contient : ',
+               'required'=>false])
+           ->add('dateStart', DateTimeType::class, ['html5' => true,
                'widget' => 'single_text',
-               'label' => 'Entre : '])
-           ->add('dateClose', DateType::class, [ 'html5' => true,
+               'label' => 'Entre : ',
+                'required'=>false])
+           ->add('dateEnd', DateTimeType::class, [ 'html5' => true,
                'widget' => 'single_text',
-               'label' => 'et '])
+               'label' => 'et ',
+               'required'=>false])
            ->add('choiceOrganisateur', CheckboxType::class, [
-               'label'    => 'Sorties dont je suis l organisateur/trice'
+               'label'    => 'Sorties dont je suis l organisateur/trice',
+               'required'=>false
                ])
            ->add('choiceInscrit', CheckboxType::class, [
-               'label'    => 'Sorties auxquelles je suis inscrit/e'
+               'label'    => 'Sorties auxquelles je suis inscrit/e',
+               'required'=>false
            ])
            ->add('choiceNoInscrit', CheckboxType::class, [
-               'label'    => 'Sorties auxquelles je ne suis pas inscrit/e'
+               'label'    => 'Sorties auxquelles je ne suis pas inscrit/e',
+               'required'=>false
            ])
            ->add('choiceEnd', CheckboxType::class, [
-               'label'    => 'Sorties passées'
+               'label'    => 'Sorties passées',
+               'required'=>false
            ])
        ;
     }
-
-
 }

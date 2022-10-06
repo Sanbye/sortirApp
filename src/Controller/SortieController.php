@@ -2,12 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Lieu;
 use App\Form\AnnulerSortieFormType;
 use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
 use App\Entity\Sortie;
+use App\Entity\Ville;
 use App\Form\CreateFormSortie;
-use App\Form\CreateSortieType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,32 +29,35 @@ class SortieController extends AbstractController
     public function create(Request $request, EntityManagerInterface $entityManager, EtatRepository $etatRepository): Response
     {
         //$sorties = $sortieRepository->findAll();
+        $lieu = new Lieu();
+        $ville = new Ville();
 
-        $sorties = new Sortie();
-        $sorties
-            ->setOrganisateur($this->getUser())
-            ->setCampus($this->getUser()->getCampus());
+        $sortie = new Sortie();
+        $sortieCreateForm = $this->createForm(CreateFormSortie::class, $sortie);
 
-        $sortiesForm = $this->createForm(CreateSortieType::class, $sorties);
+        $sortieCreateForm->handleRequest($request);
 
-        $sortiesForm->handleRequest($request);
+        if ($sortieCreateForm->isSubmitted() && $sortieCreateForm->isValid()) {
 
-        if ($sortiesForm->isSubmitted() && $sortiesForm->isValid()) {
+            $sortie->setCampus($this->getUser()->getCampus());
 
-            if ($sortiesForm->get('enregistrer')->isClicked()) {
-                $sorties->setEtat($etatRepository->findOneBy(['libelle' => 'créée']));
-            } elseif ($sortiesForm->get('publier')->isClicked()) {
-                $sorties->setEtat($etatRepository->findOneBy(['libelle' => 'ouverte']));
+            if ($sortieCreateForm->get('enregistrer')->isClicked()) {
+                $sortie->setEtat($etatRepository->findOneBy(["libelle" => 'créée']));
+            } elseif ($sortieCreateForm->get('publier')->isClicked()) {
+                $sortie->setEtat($etatRepository->findOneBy(["libelle" => 'ouverte']));
             }
 
-            $entityManager->persist($sorties);
+            $sortie->setOrganisateur($this->getUser());
+            $entityManager->persist($sortie);
             $entityManager->flush();
 
             return $this->redirectToRoute('home');
         }
 
         return $this->render('sorties/creer.html.twig', [
-            'sortiesForm' => $sortiesForm->createView()
+            'lieu' => $lieu,
+            'ville' => $ville,
+            'sortieCreateForm' => $sortieCreateForm->createView()
         ]);
     }
 
