@@ -45,17 +45,14 @@
                     <td class = "sorties_column">{% if app.user in sortie.participants == true %}OUI{% endif %}</td>
                     <td class = "sorties_column"><a href="{{ path('profil_details', {'id' : sortie.organisateur.id}) }}" title="voir le profil">{{ sortie.organisateur.nom }} {{ sortie.organisateur.prenom|first }}.</a></td>
                     <td class = "sorties_column">
-                        {% if sortie.organisateur == app.user and sortie.etat.libelle is same as("créée") %}
-                            <a href="{{ path('sortie_modifier', {'id' : sortie.id}) }}" title="Modifier la sortie">{{ "Modifier " }}</a>
-                            <a href="{{ path('sortie_publier', {'id' : sortie.id}) }}" title="Publier la sortie">{{ " - Publier" }}</a>
-                        {% else %}
 
                         {% if ("now" | date("U")) < (sortie.dateHeureDebut|date_modify("+2592000 U")|date("U")) %}
-                            {% if sortie.organisateur == app.user and sortie.etat.libelle == ("créée") %}
 
-                                <a href="{{ path('sortie_modifier', {'id' : sortie.id}) }}" title="Modifier la sortie">Modifier</a>
-                                {{ "- Publier" }}
+                            {% if sortie.organisateur == app.user and sortie.etat.libelle is same as("créée") %}
 
+                                <a href="{{ path('sortie_modifier', {'id' : sortie.id}) }}" title="Modifier la sortie">{{ "Modifier " }}</a>
+                                <a href="{{ path('sortie_publier', {'id' : sortie.id}) }}" title="Publier la sortie">{{ " - Publier" }}</a>
+                                
                             {% else %}
 
                                 <a href="{{ path('sortie_afficher', {'id' : sortie.id}) }}" title="Afficher la sortie">Afficher</a>
