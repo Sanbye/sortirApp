@@ -14,8 +14,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-
 #[Route('/sorties', name: 'sortie_')]
+
 class SortieController extends AbstractController
 {
     #[Route('/modifier', name: 'modifier')]
@@ -41,9 +41,9 @@ class SortieController extends AbstractController
         if ($sortiesForm->isSubmitted() && $sortiesForm->isValid()) {
 
             if ($sortiesForm->get('enregistrer')->isClicked()) {
-                $sorties->setEtat($etatRepository->findOneBy(["libelle" => 'créée']));
+                $sorties->setEtat($etatRepository->findOneBy(['libelle' => 'créée']));
             } elseif ($sortiesForm->get('publier')->isClicked()) {
-                $sorties->setEtat($etatRepository->findOneBy(["libelle" => 'ouverte']));
+                $sorties->setEtat($etatRepository->findOneBy(['libelle' => 'ouverte']));
             }
 
             $entityManager->persist($sorties);
