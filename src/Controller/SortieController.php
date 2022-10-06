@@ -18,12 +18,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class SortieController extends AbstractController
 {
     #[Route('/modifier/{id}', name: 'modifier')]
-    public function update(int $id,
-                            SortieRepository $sortieRepository,
-                            Request $request,
-                            EntityManagerInterface $entityManager,
-                            EtatRepository $etatRepository): Response
-    {
+    public function update(
+        int $id,
+        SortieRepository $sortieRepository,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        EtatRepository $etatRepository
+    ): Response {
         $sortie = $sortieRepository->find($id);
         $sortieCreateForm = $this->createForm(CreateFormSortie::class, $sortie);
 
@@ -31,11 +32,10 @@ class SortieController extends AbstractController
 
         if ($sortieCreateForm->isSubmitted() && $sortieCreateForm->isValid()) {
 
-            if ($sortieCreateForm->get('enregistrer')->isClicked()){
+            if ($sortieCreateForm->get('enregistrer')->isClicked()) {
 
                 $sortie->setEtat($etatRepository->findOneBy(["libelle" => 'créée']));
-
-            }elseif($sortieCreateForm->get('publier')->isClicked()){
+            } elseif ($sortieCreateForm->get('publier')->isClicked()) {
 
                 $sortie->setEtat($etatRepository->findOneBy(["libelle" => 'ouverte']));
             }
@@ -59,24 +59,23 @@ class SortieController extends AbstractController
         //$sorties = $sortieRepository->findAll();
 
         $sortie = new Sortie();
+        $sortie->setOrganisateur($this->getUser());
         $sortieCreateForm = $this->createForm(CreateFormSortie::class, $sortie);
 
         $sortieCreateForm->handleRequest($request);
 
-        if($sortieCreateForm->isSubmitted() && $sortieCreateForm->isValid()){
+        if ($sortieCreateForm->isSubmitted() && $sortieCreateForm->isValid()) {
 
             $sortie->setCampus($this->getUser()->getCampus());
 
-            if ($sortieCreateForm->get('enregistrer')->isClicked()){
+            if ($sortieCreateForm->get('enregistrer')->isClicked()) {
 
                 $sortie->setEtat($etatRepository->findOneBy(["libelle" => 'créée']));
-
-            }elseif($sortieCreateForm->get('publier')->isClicked()){
+            } elseif ($sortieCreateForm->get('publier')->isClicked()) {
 
                 $sortie->setEtat($etatRepository->findOneBy(["libelle" => 'ouverte']));
             }
 
-            $sortie->setOrganisateur($this->getUser());
             $entityManager->persist($sortie);
             $entityManager->flush();
 
@@ -89,7 +88,7 @@ class SortieController extends AbstractController
     }
 
     #[Route('/inscrit/{id}', name: 'inscription')]
-    public function inscription(int $id, Request $request, EntityManagerInterface $entityManager, SortieRepository $sortieRepository ): Response
+    public function inscription(int $id, Request $request, EntityManagerInterface $entityManager, SortieRepository $sortieRepository): Response
     {
         $sortie = $sortieRepository->find($id);
         $participant = $this->getUser();
@@ -103,7 +102,7 @@ class SortieController extends AbstractController
     }
 
     #[Route('/désisté/{id}', name: 'désinscription')]
-    public function desinscription(int $id, Request $request, EntityManagerInterface $entityManager, SortieRepository $sortieRepository ): Response
+    public function desinscription(int $id, Request $request, EntityManagerInterface $entityManager, SortieRepository $sortieRepository): Response
     {
         $sortie = $sortieRepository->find($id);
         $participant = $this->getUser();
@@ -114,10 +113,9 @@ class SortieController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('home');
-
     }
 
-    #[Route('/afficher/{id}',name: 'afficher')]
+    #[Route('/afficher/{id}', name: 'afficher')]
     public function afficher(int $id, SortieRepository $sortieRepository): Response
     {
         $sortie = $sortieRepository->find($id);
