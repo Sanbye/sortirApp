@@ -55,10 +55,12 @@
 
                         {% if app.user in sortie.participants == true and sortie.etat.libelle is same as("ouverte","cloturée") %}
 
-                            {{ "- Se désister " }}
+                        <a href="{{ path('sortie_désinscription', {'id' : sortie.id}) }}" title="Se désinscrire">{{ "- Se désister " }}</a>
+
                         {% elseif sortie.etat.libelle is same as("ouverte") %}
 
-                            {{ " - S'inscrire " }}
+                            <a href="{{ path('sortie_inscription', {'id' : sortie.id}) }}" title="S'inscrire à la sortie">{{ " - S'inscrire" }}</a>
+
                         {% endif %}
 
                         {% if sortie.organisateur == app.user and sortie.etat.libelle is same as("ouverte","cloturée")%}
