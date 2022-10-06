@@ -153,18 +153,4 @@ class SortieController extends AbstractController
 
         return $this->render('sorties/annuler.html.twig', ['annulerForm' => $annulerForm->createView(), 'sortie' => $sortie]);
     }
-
-    #[Route('/desister/{id}', name: 'desister')]
-    public function desister(int $id, EntityManagerInterface $entityManager): Response
-    {
-        $sortieRepo = $entityManager->getRepository(Sortie::class);
-        $sortie = $sortieRepo->find($id);
-
-        $entityManager->remove($this->getUser());
-        $entityManager->flush($sortie);
-
-        $this->addFlash('Succes', 'Vous vous êtes bien désisté !');
-
-        return $this->redirectToRoute('home');
-    }
 }

@@ -47,30 +47,30 @@
                     <td class = "sorties_column">
 
                         {% if ("now" | date("U")) < (sortie.dateHeureDebut|date_modify("+2592000 U")|date("U")) %}
-                            {% if sortie.organisateur == app.user and sortie.etat.libelle is same as("créée") %}
+                            {% if sortie.organisateur == app.user and sortie.etat.libelle == ("créée") %}
 
-                                <a href="{{ path('sortie_modifier', {'id' : sortie.id}) }}" title="Modifier la sortie">{{ "Modifier " }}</a>
+                                <a href="{{ path('sortie_modifier', {'id' : sortie.id}) }}" title="Modifier la sortie">Modifier</a>
                                 {{ "- Publier" }}
 
                             {% else %}
 
-                                <a href="{{ path('sortie_afficher', {'id' : sortie.id}) }}" title="Afficher la sortie">{{ "Afficher " }}</a>
-
+                                <a href="{{ path('sortie_afficher', {'id' : sortie.id}) }}" title="Afficher la sortie">Afficher</a>
+                                
                             {% endif %}
 
-                            {% if app.user in sortie.participants == true and sortie.etat.libelle is same as("ouverte","cloturée") %}
+                            {% if app.user in sortie.participants and sortie.etat.libelle == ("ouverte" or "cloturée") %}
 
-                                <a href="{{ path('sortie_désinscription', {'id' : sortie.id}) }}" title="Se désinscrire">{{ "- Se désister " }}</a>
+                                <a href="{{ path('sortie_désinscription', {'id' : sortie.id}) }}" title="Se désinscrire">- Se désister</a>
 
-                            {% elseif sortie.etat.libelle is same as("ouverte") %}
+                            {% elseif sortie.etat.libelle == ("ouverte") %}
 
-                                <a href="{{ path('sortie_inscription', {'id' : sortie.id}) }}" title="S'inscrire à la sortie">{{ " - S'inscrire" }}</a>
+                                <a href="{{ path('sortie_inscription', {'id' : sortie.id}) }}" title="S'inscrire à la sortie">- S'inscrire</a>
 
                             {% endif %}
 
                             {% if sortie.organisateur == app.user and sortie.etat.libelle is same as("ouverte","cloturée")%}
 
-                                <a href="{{ path('sortie_annuler', {'id' : sortie.id}) }}" title="Annuler la sortie">{{ " - Annuler" }}</a>
+                                <a href="{{ path('sortie_annuler', {'id' : sortie.id}) }}" title="Annuler la sortie">- Annuler</a>
 
                             {% endif %}
 
