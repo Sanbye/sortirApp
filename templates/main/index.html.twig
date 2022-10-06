@@ -46,25 +46,16 @@
                     <td class = "sorties_column"><a href="{{ path('profil_details', {'id' : sortie.organisateur.id}) }}" title="voir le profil">{{ sortie.organisateur.nom }} {{ sortie.organisateur.prenom|first }}.</a></td>
                     <td class = "sorties_column">
                         {% if sortie.organisateur == app.user and sortie.etat.libelle is same as("créée") %}
-                            <a href="{{ path('sortie_modifier', {'id' : sortie.id}) }}" title="Modifier la sortie">{{ "Modifier " }}</a>
-                            {{ "- Publier" }}
+                            {{ "Modifier - Publier" }}
                         {% else %}
-
                             <a href="{{ path('sortie_afficher', {'id' : sortie.id}) }}" title="Afficher la sortie">{{ "Afficher " }}</a>
                         {% endif %}
-
                         {% if app.user in sortie.participants == true and sortie.etat.libelle is same as("ouverte","cloturée") %}
-
-                        <a href="{{ path('sortie_désinscription', {'id' : sortie.id}) }}" title="Se désinscrire">{{ "- Se désister " }}</a>
-
+                            {{ "- Se désister " }}
                         {% elseif sortie.etat.libelle is same as("ouverte") %}
-
-                            <a href="{{ path('sortie_inscription', {'id' : sortie.id}) }}" title="S'inscrire à la sortie">{{ " - S'inscrire" }}</a>
-
+                            {{ " - S'inscrire " }}
                         {% endif %}
-
                         {% if sortie.organisateur == app.user and sortie.etat.libelle is same as("ouverte","cloturée")%}
-
                             <a href="{{ path('sortie_annuler', {'id' : sortie.id}) }}" title="Annuler la sortie">{{ " - Annuler" }}</a>
                         {% endif %}
                     </td>
