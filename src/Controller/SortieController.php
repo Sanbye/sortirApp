@@ -30,9 +30,7 @@ class SortieController extends AbstractController
     ): Response {
 
         $sorties = new Sortie();
-        $sorties
-            ->setOrganisateur($this->getUser())
-            ->getEtat();
+        $sorties->setOrganisateur($this->getUser());
 
         $sortiesForm = $this->createForm(CreateSortieType::class, $sorties);
         $sortiesForm->handleRequest($request);
