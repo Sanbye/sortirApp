@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Campus;
 use App\Entity\Lieu;
 use App\Entity\Sortie;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -19,29 +20,43 @@ class CreateFormSortie extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+
         $builder
-            ->add('nom',TextType::class, ['label' => 'Nom de la sortie : '])
+            ->add('nom', TextType::class, ['label' => 'Nom de la sortie : ',
+                'required'=>false])
             ->add('dateHeureDebut', DateTimeType::class, ['html5' => true,
                 'widget' => 'single_text',
-                'label' => 'Entre : ',
-                'required'=>false])
-            ->add('dateLimiteInscription', DateType::class, [ 'html5' => true,
+                'label' => 'Date et heure de la sortie : ',
+                'required' => false])
+            ->add('dateLimiteInscription', DateType::class, ['html5' => true,
                 'widget' => 'single_text',
-                'label' => 'et ',
+                'label' => 'Date limite d inscription : ',
+                'required' => false])
+            ->add('nbInscriptionsMax', IntegerType::class, ['label' => 'Nombre de places : ',
                 'required'=>false])
-            ->add('nbInscriptionsMax',IntegerType::class, ['label' => 'Nombre de places : '])
-            ->add('duree',IntegerType::class, ['label' => 'Durée : '])
-            ->add('infosSortie',TextareaType::class, ['label' => 'Description et infos : '])
+            ->add('duree', IntegerType::class, ['label' => 'Durée : ',
+                'required'=>false])
+            ->add('infosSortie', TextareaType::class, ['label' => 'Description et infos : ',
+                'required'=>false])
             ->add('Lieu', EntityType::class, [
                 'class' => Lieu::class,
                 'label' => 'Lieu : ',
-                'choice_label' => function ($lieu) {
-                    return $lieu->getNom();
-                },
-                ])
-            ->add('enregistrer', SubmitType::class, ['label' => 'Enregistrer'])
-            ->add('publier', SubmitType::class, ['label' => 'Publier la sortie'])
-        ;
+                'choice_label' => 'nom',
+                'required'=>false
+            ])
+            ->add('enregistrer', SubmitType::class, [
+                'label' => 'Enregistrer'
+            ])
+            ->add('publier', SubmitType::class, [
+                'label' => 'Publier la sortie'
+            ])
+            ->add('supprimer', SubmitType::class, [
+                'label' => 'Supprimer la sortie'
+            ])
+            ->add('annuler', SubmitType::class, [
+                'label' => 'Annuler'
+            ]);
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -75,10 +75,17 @@ class AppFixtures extends Fixture
             $campusS[$i] = $campus;
         }
 
+<<<<<<< HEAD
         for ($i = 0; $i < 4; $i++) {
 
             $etat = new Etat();
             $NICKTOUT = ["créée", "ouverte", "cloturée", "fermé"];
+=======
+        for ($i = 0; $i < 6; $i++) {
+
+            $etat = new Etat();
+            $NICKTOUT = ["créée", "ouverte", "cloturée", "activitée en cours", "passée", "annulée"];
+>>>>>>> master
 
             $etat->setLibelle($NICKTOUT[$i]);
 

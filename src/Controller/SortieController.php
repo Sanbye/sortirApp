@@ -19,10 +19,40 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SortieController extends AbstractController
 {
-    #[Route('/modifier', name: 'modifier')]
-    public function update(SortieRepository $sortieRepository): Response
-    {
-        return $this->render('sorties/modifier.html.twig',);
+    #[Route('/modifier/{id}', name: 'modifier')]
+    public function update(
+        int $id,
+        SortieRepository $sortieRepository,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        EtatRepository $etatRepository
+    ): Response {
+        $sortie = $sortieRepository->find($id);
+        $sortieCreateForm = $this->createForm(CreateFormSortie::class, $sortie);
+
+        $sortieCreateForm->handleRequest($request);
+
+        if ($sortieCreateForm->isSubmitted() && $sortieCreateForm->isValid()) {
+
+            if ($sortieCreateForm->get('enregistrer')->isClicked()) {
+
+                $sortie->setEtat($etatRepository->findOneBy(["libelle" => 'créée']));
+            } elseif ($sortieCreateForm->get('publier')->isClicked()) {
+
+                $sortie->setEtat($etatRepository->findOneBy(["libelle" => 'ouverte']));
+            }
+
+
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('home');
+        }
+
+        return $this->render(
+            'sorties/modifier.html.twig',
+            ['sortieCreateForm' => $sortieCreateForm->createView()]
+        );
     }
 
     #[Route('/creer', name: 'creer')]
@@ -33,6 +63,7 @@ class SortieController extends AbstractController
         $ville = new Ville();
 
         $sortie = new Sortie();
+        $sortie->setOrganisateur($this->getUser());
         $sortieCreateForm = $this->createForm(CreateFormSortie::class, $sortie);
 
         $sortieCreateForm->handleRequest($request);
@@ -42,12 +73,13 @@ class SortieController extends AbstractController
             $sortie->setCampus($this->getUser()->getCampus());
 
             if ($sortieCreateForm->get('enregistrer')->isClicked()) {
+
                 $sortie->setEtat($etatRepository->findOneBy(["libelle" => 'créée']));
             } elseif ($sortieCreateForm->get('publier')->isClicked()) {
+
                 $sortie->setEtat($etatRepository->findOneBy(["libelle" => 'ouverte']));
             }
 
-            $sortie->setOrganisateur($this->getUser());
             $entityManager->persist($sortie);
             $entityManager->flush();
 
@@ -59,6 +91,34 @@ class SortieController extends AbstractController
             'ville' => $ville,
             'sortieCreateForm' => $sortieCreateForm->createView()
         ]);
+    }
+
+    #[Route('/inscrit/{id}', name: 'inscription')]
+    public function inscription(int $id, Request $request, EntityManagerInterface $entityManager, SortieRepository $sortieRepository): Response
+    {
+        $sortie = $sortieRepository->find($id);
+        $participant = $this->getUser();
+
+        $sortie->addParticipant($participant);
+
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('home');
+    }
+
+    #[Route('/désisté/{id}', name: 'désinscription')]
+    public function desinscription(int $id, Request $request, EntityManagerInterface $entityManager, SortieRepository $sortieRepository): Response
+    {
+        $sortie = $sortieRepository->find($id);
+        $participant = $this->getUser();
+
+        $sortie->removeParticipant($participant);
+
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('home');
     }
 
     #[Route('/afficher/{id}', name: 'afficher')]
