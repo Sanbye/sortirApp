@@ -47,14 +47,19 @@
                     <td class = "sorties_column">
 
                         {% if ("now" | date("U")) < (sortie.dateHeureDebut|date_modify("+2592000 U")|date("U")) %}
+<<<<<<< HEAD
 
                             {% if sortie.organisateur == app.user and sortie.etat.libelle is same as("créée") %}
 
                                 <a href="{{ path('sortie_modifier', {'id' : sortie.id}) }}" title="Modifier la sortie">{{ "Modifier " }}</a>
                                 <a href="{{ path('sortie_publier', {'id' : sortie.id}) }}" title="Publier la sortie">{{ " - Publier" }}</a>
                                 
+=======
+                            {% if sortie.organisateur == app.user and sortie.etat.libelle is same as("créée") %}
+                                <a href="{{ path('sortie_modifier', {'id' : sortie.id}) }}" title="Modifier la sortie">{{ "Modifier " }}</a>
+                                <a href="{{ path('sortie_publier', {'id' : sortie.id}) }}" title="Publier la sortie">{{ " - Publier" }}</a>
+>>>>>>> master
                             {% else %}
-
                                 <a href="{{ path('sortie_afficher', {'id' : sortie.id}) }}" title="Afficher la sortie">Afficher</a>
 
                             {% endif %}
@@ -81,7 +86,6 @@
 
                         {% endif %}
                         </td>
-
                 </tr>
             {% endfor %}
         </table>

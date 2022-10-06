@@ -39,8 +39,12 @@
     <div class="profil_row">
         {{ form_row(sortieCreateForm.enregistrer) }}
         {{ form_row(sortieCreateForm.publier) }}
-        {{ form_row(sortieCreateForm.supprimer) }}
-        {{ form_row(sortieCreateForm.annuler) }}
+        <button class="profil_btn" type="button">
+            <a class="return_btn" href="{{ path('sortie_supprimer', {'id' : sortie.id}) }}">Supprimer la sortie</a>
+        </button>
+        <button class="profil_btn" type="button">
+            <a class="return_btn" href="{{ path('home') }}">Annuler</a>
+        </button>
     </div>
 
     {{ form_end(sortieCreateForm) }}
