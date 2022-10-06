@@ -49,12 +49,6 @@ class CreateFormSortie extends AbstractType
             ])
             ->add('publier', SubmitType::class, [
                 'label' => 'Publier la sortie'
-            ])
-            ->add('supprimer', SubmitType::class, [
-                'label' => 'Supprimer la sortie'
-            ])
-            ->add('annuler', SubmitType::class, [
-                'label' => 'Annuler'
             ]);
 
     }

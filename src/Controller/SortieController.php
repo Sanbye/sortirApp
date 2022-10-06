@@ -2,16 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Sortie;
-use App\Entity\Ville;
-use App\Entity\Lieu;
 use App\Form\AnnulerSortieFormType;
 use App\Form\CreateFormSortie;
 use App\Repository\EtatRepository;
+use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
 use App\Entity\Sortie;
-use App\Form\CreateFormSortie;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,15 +33,14 @@ class SortieController extends AbstractController
     }
 
     #[Route('/modifier/{id}', name: 'modifier')]
-    public function update(
-        int $id,
-        SortieRepository $sortieRepository,
-        Request $request,
-        EntityManagerInterface $entityManager,
-        EtatRepository $etatRepository
-    ): Response {
-        $sortie = $sortieRepository->find($id);
-        $sortieCreateForm = $this->createForm(CreateFormSortie::class, $sortie);
+    public function update(int $id,
+                            SortieRepository $sortieRepository,
+                            Request $request,
+                            EntityManagerInterface $entityManager,
+                            EtatRepository $etatRepository): Response
+    {
+       $sortie = $sortieRepository->find($id);
+       $sortieCreateForm = $this->createForm(CreateFormSortie::class, $sortie);
 
         $sortieCreateForm->handleRequest($request);
 
@@ -67,18 +62,24 @@ class SortieController extends AbstractController
         }
 
         return $this->render(
-            'sorties/modifier.html.twig',
-            ['sortieCreateForm' => $sortieCreateForm->createView()]
-        );
+            'sorties/modifier.html.twig', [
+                'sortieCreateForm' => $sortieCreateForm->createView(),
+            'sortie' => $sortie
+            ]);
     }
 
     #[Route('/creer', name: 'creer')]
-    public function create(Request $request, EntityManagerInterface $entityManager, EtatRepository $etatRepository): Response
+    public function create(Request $request,
+                           EntityManagerInterface $entityManager,
+                           EtatRepository $etatRepository,
+                           ParticipantRepository $participantRepository): Response
     {
         //$sorties = $sortieRepository->findAll();
 
         $sortie = new Sortie();
-        $sortie->setOrganisateur($this->getUser());
+        $participant = $participantRepository->find($this->getUser());
+        $sortie->setOrganisateur($participant);
+
         $sortieCreateForm = $this->createForm(CreateFormSortie::class, $sortie);
 
         $sortieCreateForm->handleRequest($request);
@@ -93,7 +94,9 @@ class SortieController extends AbstractController
             } elseif ($sortieCreateForm->get('publier')->isClicked()) {
 
                 $sortie->setEtat($etatRepository->findOneBy(["libelle" => 'ouverte']));
+
             }
+
 
             $entityManager->persist($sortie);
             $entityManager->flush();
@@ -165,5 +168,17 @@ class SortieController extends AbstractController
         }
 
         return $this->render('sorties/annuler.html.twig', ['annulerForm' => $annulerForm->createView(), 'sortie' => $sortie]);
+    }
+
+    #[Route('/supprimer/{id}', name: 'supprimer')]
+    public function supprimer(int $id, EtatRepository $etatRepository, SortieRepository $sortieRepository, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $sortie = $sortieRepository->find($id);
+        $entityManager->remove($sortie);
+        $entityManager->flush();
+
+
+        return $this->redirectToRoute('home');
+
     }
 }

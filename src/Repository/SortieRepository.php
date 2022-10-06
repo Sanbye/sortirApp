@@ -57,23 +57,26 @@ class SortieRepository extends ServiceEntityRepository
 //    }
     public function findAllWithQueries($filtres,$participant) {
         $queryBuilder = $this->createQueryBuilder('s');
-        $queryBuilder->innerJoin('s.participants', 'u');
         $queryBuilder->innerJoin('s.etat', 'e');
+
 
         if($filtres->getCampus()!=null) {
             $queryBuilder->andWhere('s.Campus = :campusSelected')
                 ->setParameter('campusSelected', $filtres->getCampus());
         }
-        $queryBuilder->andWhere('s.nom LIKE :searchSelected')
-            ->setParameter('searchSelected', '%'.$filtres->getSearch().'%');
+        if($filtres->getSearch()!=null) {
+            $queryBuilder->andWhere('s.nom LIKE :searchSelected')
+                ->setParameter('searchSelected', '%'.$filtres->getSearch().'%');
+        }
         $queryBuilder->andWhere('s.dateHeureDebut  >= :dateStartSelected')
             ->setParameter('dateStartSelected', $filtres->getDateStart());
         $queryBuilder->andWhere('s.dateHeureDebut <= :dateEndSelected')
             ->setParameter('dateEndSelected', $filtres->getDateEnd());
 
+
             // CHOICE ORGANISATEUR
-        if($filtres->getChoiceOrganisateur()==true) {
-            $queryBuilder->andWhere('s.organisateur = (:participant)')
+        if($filtres->getChoiceOrganisateur()) {
+            $queryBuilder->andWhere('s.organisateur = :participant')
                 ->setParameter('participant', $participant);
         }
 
@@ -91,12 +94,13 @@ class SortieRepository extends ServiceEntityRepository
 
         // CHOICE SORTIES END
         if($filtres->getChoiceEnd()==true) {
-            $queryBuilder->andWhere('e.id = 17');
+            $queryBuilder->andWhere('e.libelle = :etat')
+                ->setParameter('etat', 'cloturée');
         }
 
         //$queryBuilder->andWhere('s.vote > 7');
         //$queryBuilder->addOrderBy('s.popularity', 'DESC');
-        $query = $queryBuilder->getQuery();
+        dump($query = $queryBuilder->getQuery());
 
         //$query->setMaxResults(50);
         //$paginator = new Paginator($query);
