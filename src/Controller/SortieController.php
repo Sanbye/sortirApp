@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Sortie;
-use App\Form\CreateSortieType;
+use App\Form\AnnulerSortieFormType;
 use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
+use App\Entity\Sortie;
+use App\Form\CreateFormSortie;
+use App\Form\CreateSortieType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,25 +19,32 @@ use Symfony\Component\Routing\Annotation\Route;
 class SortieController extends AbstractController
 {
     #[Route('/modifier', name: 'modifier')]
-    public function update(): Response
+    public function update(SortieRepository $sortieRepository): Response
     {
         return $this->render('sorties/modifier.html.twig',);
     }
 
     #[Route('/creer', name: 'creer')]
-    public function create(
-        Request $request,
-        EntityManagerInterface $entityManager,
-        CreateSortieType $sortiesForm
-    ): Response {
+    public function create(Request $request, EntityManagerInterface $entityManager, EtatRepository $etatRepository): Response
+    {
+        //$sorties = $sortieRepository->findAll();
 
         $sorties = new Sortie();
-        $sorties->setOrganisateur($this->getUser());
+        $sorties
+            ->setOrganisateur($this->getUser())
+            ->setCampus($this->getUser()->getCampus());
 
         $sortiesForm = $this->createForm(CreateSortieType::class, $sorties);
+
         $sortiesForm->handleRequest($request);
 
         if ($sortiesForm->isSubmitted() && $sortiesForm->isValid()) {
+
+            if ($sortiesForm->get('enregistrer')->isClicked()) {
+                $sorties->setEtat($etatRepository->findOneBy(["libelle" => 'créée']));
+            } elseif ($sortiesForm->get('publier')->isClicked()) {
+                $sorties->setEtat($etatRepository->findOneBy(["libelle" => 'ouverte']));
+            }
 
             $entityManager->persist($sorties);
             $entityManager->flush();
