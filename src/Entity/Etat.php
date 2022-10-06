@@ -17,7 +17,7 @@ class Etat
     private ?int $id = null;
 
     #[ORM\Column(length: 255, unique: true)]
-    private ?string $libelle = 'créée';
+    private ?string $libelle = null;
 
     #[ORM\OneToMany(mappedBy: 'Etat', targetEntity: Sortie::class)]
     private Collection $sorties;
@@ -72,5 +72,10 @@ class Etat
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getLibelle();
     }
 }

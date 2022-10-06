@@ -13,13 +13,15 @@ class AnnulerSortieFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('infosSortie', TextareaType::class, [
-                'required' => 'true',
-                'data' => '',
-                'label' => 'Motif : '
+            ->add(
+                'infosSortie',
+                TextareaType::class,
+                [
+                    'required' => 'true',
+                    'data' => '',
+                    'label' => 'Motif : '
                 ]
             );
-
     }
 
     public function configureOptions(OptionsResolver $resolver): void

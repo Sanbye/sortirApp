@@ -31,8 +31,8 @@
         {{ form_label(sortieCreateForm.Lieu) }}
         {{ form_widget(sortieCreateForm.Lieu) }}
 
-        <p>Rue : lieu.rue </p>
-        <p>Code postal : ->getCodePostal()</p>
+        <p>Rue : {{ lieu.rue }} </p>
+        <p>Code postal : {{ ville.CodePostal }} </p>
     </div>
 
     <div class="profil_row">

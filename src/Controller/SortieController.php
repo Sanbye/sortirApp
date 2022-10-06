@@ -2,7 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Sortie;
+use App\Entity\Ville;
+use App\Entity\Lieu;
 use App\Form\AnnulerSortieFormType;
+use App\Form\CreateFormSortie;
 use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
 use App\Entity\Sortie;
@@ -139,8 +143,13 @@ class SortieController extends AbstractController
     }
 
     #[Route('/annuler/{id}', name: 'annuler')]
-    public function annuler(int $id, EtatRepository $etatRepository, SortieRepository $sortieRepository, Request $request, EntityManagerInterface $entityManager): Response
-    {
+    public function annuler(
+        int $id,
+        EtatRepository $etatRepository,
+        SortieRepository $sortieRepository,
+        Request $request,
+        EntityManagerInterface $entityManager
+    ): Response {
         $sortie = $sortieRepository->find($id);
         $annulerForm = $this->createForm(AnnulerSortieFormType::class, $sortie);
         $annulerForm->handleRequest($request);
