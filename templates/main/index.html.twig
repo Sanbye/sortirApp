@@ -73,7 +73,11 @@
                                 <a href="{{ path('sortie_annuler', {'id' : sortie.id}) }}" title="Annuler la sortie">{{ " - Annuler" }}</a>
 
                             {% endif %}
+
                         {% else %}
+
+                            {{ 'Archivé' }}
+                            
                         {% endif %}
                         </td>
 

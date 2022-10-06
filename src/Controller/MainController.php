@@ -26,11 +26,11 @@ class MainController extends AbstractController
         $sortiesForm = $this->createForm(SortiesFormType::class);
         $sortiesForm->handleRequest($request);
 
-
         $filtres->setCampus($sortiesForm->get('campus')->getData());
         $filtres->setSearch($sortiesForm->get('search')->getData());
 
         // TRAITEMENT NULL DATE START
+
         $startDate = $sortiesForm->get('dateStart')->getData();
         if ($startDate == null) {
             $filtres->setDateStart(new \DateTime("-10years"));
@@ -39,6 +39,7 @@ class MainController extends AbstractController
         }
 
         // TRAITEMENT NULL DATE END
+
         $endDate = $sortiesForm->get('dateEnd')->getData();
         if ($endDate == null) {
             $filtres->setDateEnd(new \DateTime("+50years"));
