@@ -63,4 +63,18 @@ class SortieRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    public function findAllWithQueries($campusSelected) {
+        $queryBuilder = $this->createQueryBuilder('s');
+        $queryBuilder->andWhere('s.Campus = :campusSelected')
+            ->setParameter('campusSelected', $campusSelected);
+        //$queryBuilder->andWhere('s.vote > 7');
+        //$queryBuilder->addOrderBy('s.popularity', 'DESC');
+        $query = $queryBuilder->getQuery();
+        //$query->setMaxResults(50);
+        //$paginator = new Paginator($query);
+        $results = $query->getResult();
+        // return $paginator;
+        return $results;
+    }
 }

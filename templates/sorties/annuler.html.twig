@@ -3,5 +3,52 @@
 {% block title %}Sorties{% endblock %}
 
 {% block body %}
-    
+
+    <section class = "main_section">
+
+        <div>
+            <span>Nom de la sortie :</span>
+            <span>{{ sortie.nom }}</span>
+        </div>
+
+        <div>
+            <span>Date de la sortie :</span>
+            <span>{{ sortie.dateHeureDebut|date("d-m-Y") }}</span>
+        </div>
+
+        <div>
+            <span>Campus :</span>
+            <span>{{ sortie.campus.nom }}</span>
+        </div>
+
+        <div>
+            <span>Lieu :</span>
+            <span>{{ sortie.lieu.nom     }}</span>
+        </div>
+
+        <div>
+            <span>
+                {{ form_start(annulerForm) }}
+            </span>
+        </div>
+
+        <div>
+            <span>
+                {{ form_widget(annulerForm) }}
+                <button>
+                    Enregistrer
+                </button>
+
+                {{ form_end(annulerForm) }}
+            </span>
+
+            <span>
+                <button>
+                    <a href="{{ path('home')}}" title="Annuler">{{ "Annuler" }}</a>
+                </button>
+            </span>
+        </div>
+
+    </section>
+
 {% endblock %}

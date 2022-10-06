@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block body %}
+
+    <section class = "main_section">
+        <table class = "array_affichage_sortie">
+
+            <tr>
+                <td>Nom de la sortie :</td>
+                <td>{{ sortie.nom}}</td>
+                <td>Campus : </td>
+                <td>{{ sortie.campus.nom }}</td>
+            </tr>
+
+            <tr>
+                <td>Date et heure de la sortie :</td>
+                <td>{{ sortie.dateHeureDebut|date("d-m-Y") }}</td>
+                <td>Lieu :</td>
+                <td>{{ sortie.lieu.nom }}</td>
+            </tr>
+
+            <tr>
+                <td>Date limite d'inscription :</td>
+                <td>{{ sortie.dateLimiteInscription|date("d-m-Y") }}</td>
+                <td>Rue :</td>
+                <td>{{ sortie.lieu.rue }}</td>
+            </tr>
+
+            <tr>
+                <td>Nombre de places :</td>
+                <td>{{ sortie.nbInscriptionsMax }}</td>
+                <td>Code postal :</td>
+                <td>{{ sortie.lieu.ville.codePostal }}</td>
+            </tr>
+
+            <tr>
+                <td> Durée :</td>
+                <td>{{ sortie.duree }}</td>
+                <td>Latitude :</td>
+                <td>{{ sortie.lieu.latitude }}</td>
+            </tr>
+
+            <tr>
+                <td>Description et infos :</td>
+                <td>{{ sortie.infosSortie }}</td>
+                <td>Longitude :</td>
+                <td>{{ sortie.lieu.longitude }}</td>
+            </tr>
+
+        </table>
+    </section>
+
+
+    <div>
+        <table class = "array_participants_sortie">
+
+            <caption>
+                <h3>Liste des participants :</h3>
+            </caption>
+
+            <tr class = "sorties_row">
+                <th class = "sorties_column">Pseudo</th>
+                <th class = "sorties_column">Nom</th>
+            </tr>
+
+            {% for participant in sortie.participants %}
+
+                <tr class = "sorties_row">
+                    <td class = "sorties_column">{{ participant.pseudo }}</td>
+
+                    <td class = "sorties_column"><a href="{{ path('profil_details', {'id' : participant.id}) }}" title="voir le profil">{{ participant.nom }} {{ participant.prenom|first }}.</a></td>
+                </tr>
+
+            {% endfor %}
+
+        </table>
+
+
+    </div>
+
+{% endblock %}
