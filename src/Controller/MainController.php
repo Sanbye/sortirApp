@@ -52,6 +52,7 @@ class MainController extends AbstractController
         $filtres->setChoiceNoInscrit($sortiesForm->get('choiceNoInscrit')->getData());
         $filtres->setChoiceEnd($sortiesForm->get('choiceEnd')->getData());
 
+
         $sorties = $sortieRepository->findAll();
 
 

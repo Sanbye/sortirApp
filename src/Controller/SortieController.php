@@ -9,16 +9,33 @@ use App\Form\AnnulerSortieFormType;
 use App\Form\CreateFormSortie;
 use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
+use App\Entity\Sortie;
+use App\Form\CreateFormSortie;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/sorties', name: 'sortie_')]
 
+#[Route('/sorties', name: 'sortie_')]
 class SortieController extends AbstractController
 {
+    #[Route('/publier/{id}', name: 'publier')]
+    public function publier(int $id, SortieRepository $sortieRepository, EtatRepository $etatRepository, EntityManagerInterface $entityManager)
+    {
+
+        $sortie = $sortieRepository->find($id);
+
+        $sortie->setEtat($etatRepository->findOneBy(["libelle" => 'ouverte']));
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('home');
+
+    }
+
     #[Route('/modifier/{id}', name: 'modifier')]
     public function update(
         int $id,
@@ -59,8 +76,6 @@ class SortieController extends AbstractController
     public function create(Request $request, EntityManagerInterface $entityManager, EtatRepository $etatRepository): Response
     {
         //$sorties = $sortieRepository->findAll();
-        $lieu = new Lieu();
-        $ville = new Ville();
 
         $sortie = new Sortie();
         $sortie->setOrganisateur($this->getUser());
@@ -87,8 +102,6 @@ class SortieController extends AbstractController
         }
 
         return $this->render('sorties/creer.html.twig', [
-            'lieu' => $lieu,
-            'ville' => $ville,
             'sortieCreateForm' => $sortieCreateForm->createView()
         ]);
     }
