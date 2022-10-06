@@ -58,6 +58,7 @@ class SortieController extends AbstractController
         ]);
     }
 
+    #[Route('/afficher/{id}', name: 'afficher')]
     #[Route('/inscrit/{id}', name: 'inscription')]
     public function inscription(int $id, Request $request, EntityManagerInterface $entityManager, SortieRepository $sortieRepository ): Response
     {
@@ -95,14 +96,14 @@ class SortieController extends AbstractController
         return $this->render('sorties/afficher.html.twig', ['sortie' => $sortie]);
     }
 
-    #[Route('/annuler/{id}',name: 'annuler')]
-    public function annuler(int $id, EtatRepository $etatRepository ,SortieRepository $sortieRepository,Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/annuler/{id}', name: 'annuler')]
+    public function annuler(int $id, EtatRepository $etatRepository, SortieRepository $sortieRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
         $sortie = $sortieRepository->find($id);
         $annulerForm = $this->createForm(AnnulerSortieFormType::class, $sortie);
         $annulerForm->handleRequest($request);
 
-        if($annulerForm->isSubmitted() && $annulerForm->isValid()){
+        if ($annulerForm->isSubmitted() && $annulerForm->isValid()) {
 
             $sortie->setEtat($etatRepository->findOneBy(["libelle" => 'annulée']));
 
@@ -112,7 +113,6 @@ class SortieController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-    return $this->render('sorties/annuler.html.twig', ['annulerForm' => $annulerForm->createView(),'sortie' => $sortie]);
-
+        return $this->render('sorties/annuler.html.twig', ['annulerForm' => $annulerForm->createView(), 'sortie' => $sortie]);
     }
 }
