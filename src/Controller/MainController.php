@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\classes\Filtres;
+use App\Entity\Sortie;
 use App\Form\SortiesFormType;
 use App\Repository\SortieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,9 +16,10 @@ class MainController extends AbstractController
 {
     #[Route('/', name: 'home')]
     public function home(
-        SortieRepository      $sortieRepository,
-        Request $request
+        SortieRepository $sortieRepository,
+        Request $request,
     ): Response {
+
         $participant = $this->getUser();
         $filtres = new Filtres();
 
@@ -48,11 +51,7 @@ class MainController extends AbstractController
         $filtres->setChoiceNoInscrit($sortiesForm->get('choiceNoInscrit')->getData());
         $filtres->setChoiceEnd($sortiesForm->get('choiceEnd')->getData());
 
-        if ($filtres == null) {
-            $sorties = $sortieRepository->findAll();
-        } else {
-            $sorties = $sortieRepository->findAllWithQueries($filtres, $participant);
-        }
+        $sorties = $sortieRepository->findAll();
 
 
         return $this->render('main/index.html.twig', [
