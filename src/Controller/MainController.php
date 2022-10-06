@@ -2,10 +2,10 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\classes\Filtres;
 use App\Form\SortiesFormType;
 use App\Repository\SortieRepository;
-use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,13 +20,7 @@ class MainController extends AbstractController
         $participant = $this->getUser();
         $filtres = new Filtres();
 
-        //foreach($sorties->getParticipants() as $participants) {
-        //    $nbParticipants = $participants.length;
-        //}
-
-        // PENSER A CREER UNE CLASSE FILTRE POUR RECUP
         $sortiesForm = $this->createForm(SortiesFormType::class);
-
         $sortiesForm->handleRequest($request);
 
 
@@ -54,11 +48,10 @@ class MainController extends AbstractController
             $filtres->setChoiceNoInscrit($sortiesForm->get('choiceNoInscrit')->getData());
             $filtres->setChoiceEnd($sortiesForm->get('choiceEnd')->getData());
 
-            if ($filtres == null) {
+            if($filtres == null) {
                 $sorties = $sortieRepository->findAll();
             } else {
                 $sorties = $sortieRepository->findAllWithQueries($filtres, $participant);
-
             }
 
 
@@ -67,7 +60,6 @@ class MainController extends AbstractController
                 'sorties' => $sorties,
                 'sortiesForm' => $sortiesForm->createView(),
             ]);
-
 
     }
 }

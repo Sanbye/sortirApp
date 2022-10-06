@@ -17,10 +17,40 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/sorties', name: 'sortie_')]
 class SortieController extends AbstractController
 {
-    #[Route('/modifier', name: 'modifier')]
-    public function update(SortieRepository $sortieRepository): Response
+    #[Route('/modifier/{id}', name: 'modifier')]
+    public function update(int $id,
+                            SortieRepository $sortieRepository,
+                            Request $request,
+                            EntityManagerInterface $entityManager,
+                            EtatRepository $etatRepository): Response
     {
-        return $this->render('sorties/modifier.html.twig',);
+        $sortie = $sortieRepository->find($id);
+        $sortieCreateForm = $this->createForm(CreateFormSortie::class, $sortie);
+
+        $sortieCreateForm->handleRequest($request);
+
+        if ($sortieCreateForm->isSubmitted() && $sortieCreateForm->isValid()) {
+
+            if ($sortieCreateForm->get('enregistrer')->isClicked()){
+
+                $sortie->setEtat($etatRepository->findOneBy(["libelle" => 'créée']));
+
+            }elseif($sortieCreateForm->get('publier')->isClicked()){
+
+                $sortie->setEtat($etatRepository->findOneBy(["libelle" => 'ouverte']));
+            }
+
+
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('home');
+        }
+
+        return $this->render(
+            'sorties/modifier.html.twig',
+            ['sortieCreateForm' => $sortieCreateForm->createView()]
+        );
     }
 
     #[Route('/creer', name: 'creer')]
@@ -58,7 +88,6 @@ class SortieController extends AbstractController
         ]);
     }
 
-    #[Route('/afficher/{id}', name: 'afficher')]
     #[Route('/inscrit/{id}', name: 'inscription')]
     public function inscription(int $id, Request $request, EntityManagerInterface $entityManager, SortieRepository $sortieRepository ): Response
     {
@@ -74,7 +103,7 @@ class SortieController extends AbstractController
     }
 
     #[Route('/désisté/{id}', name: 'désinscription')]
-    public function désinscription(int $id, Request $request, EntityManagerInterface $entityManager, SortieRepository $sortieRepository ): Response
+    public function desinscription(int $id, Request $request, EntityManagerInterface $entityManager, SortieRepository $sortieRepository ): Response
     {
         $sortie = $sortieRepository->find($id);
         $participant = $this->getUser();

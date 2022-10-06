@@ -1,7 +1,48 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }}{% endblock %}
+{% block title %}Modifier sortie | {{ parent() }}{% endblock %}
 
 {% block body %}
+
+    {{ form_start(sortieCreateForm) }}
+    <div>
+        {{ form_label(sortieCreateForm.nom) }}
+        {{ form_widget(sortieCreateForm.nom) }}
+
+        {{ form_label(sortieCreateForm.dateHeureDebut) }}
+        {{ form_widget(sortieCreateForm.dateHeureDebut) }}
+
+        {{ form_label(sortieCreateForm.dateLimiteInscription) }}
+        {{ form_widget(sortieCreateForm.dateLimiteInscription) }}
+
+        {{ form_label(sortieCreateForm.nbInscriptionsMax) }}
+        {{ form_widget(sortieCreateForm.nbInscriptionsMax) }}
+
+        {{ form_label(sortieCreateForm.duree) }}
+        {{ form_widget(sortieCreateForm.duree) }}
+
+        {{ form_label(sortieCreateForm.infosSortie) }}
+        {{ form_widget(sortieCreateForm.infosSortie) }}
+    </div>
+
+    <div>
+        <h2>Campus : {{ app.user.campus.nom }}</h2>
+
+        {{ form_label(sortieCreateForm.Lieu) }}
+        {{ form_widget(sortieCreateForm.Lieu) }}
+
+        <p>Rue : </p>
+        <p>Code postal : </p>
+
+    </div>
+
+    <div class="profil_row">
+        {{ form_row(sortieCreateForm.enregistrer) }}
+        {{ form_row(sortieCreateForm.publier) }}
+        {{ form_row(sortieCreateForm.supprimer) }}
+        {{ form_row(sortieCreateForm.annuler) }}
+    </div>
+
+    {{ form_end(sortieCreateForm) }}
 
 {% endblock %}
