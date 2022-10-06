@@ -2,12 +2,13 @@
 
 namespace App\Controller;
 
+
+use App\Entity\Sortie;
 use App\Form\AnnulerSortieFormType;
 use App\Form\CreateFormSortie;
 use App\Repository\EtatRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
-use App\Entity\Sortie;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
