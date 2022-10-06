@@ -78,7 +78,7 @@ class AppFixtures extends Fixture
         for ($i = 0; $i < 4; $i++) {
 
             $etat = new Etat();
-            $NICKTOUT = ["En cours", "Fermé", "Ouvert", "En création"];
+            $NICKTOUT = ["créée", "ouverte", "cloturée", "fermé"];
 
             $etat->setLibelle($NICKTOUT[$i]);
 

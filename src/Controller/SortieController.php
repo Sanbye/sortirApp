@@ -2,13 +2,13 @@
 
 namespace App\Controller;
 
-use App\Entity\Lieu;
-use App\Form\AnnulerSortieFormType;
-use App\Repository\EtatRepository;
-use App\Repository\SortieRepository;
 use App\Entity\Sortie;
 use App\Entity\Ville;
+use App\Entity\Lieu;
+use App\Form\AnnulerSortieFormType;
 use App\Form\CreateFormSortie;
+use App\Repository\EtatRepository;
+use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -70,8 +70,13 @@ class SortieController extends AbstractController
     }
 
     #[Route('/annuler/{id}', name: 'annuler')]
-    public function annuler(int $id, EtatRepository $etatRepository, SortieRepository $sortieRepository, Request $request, EntityManagerInterface $entityManager): Response
-    {
+    public function annuler(
+        int $id,
+        EtatRepository $etatRepository,
+        SortieRepository $sortieRepository,
+        Request $request,
+        EntityManagerInterface $entityManager
+    ): Response {
         $sortie = $sortieRepository->find($id);
         $annulerForm = $this->createForm(AnnulerSortieFormType::class, $sortie);
         $annulerForm->handleRequest($request);
@@ -87,5 +92,19 @@ class SortieController extends AbstractController
         }
 
         return $this->render('sorties/annuler.html.twig', ['annulerForm' => $annulerForm->createView(), 'sortie' => $sortie]);
+    }
+
+    #[Route('/desister/{id}', name: 'desister')]
+    public function desister(int $id, EntityManagerInterface $entityManager): Response
+    {
+        $sortieRepo = $entityManager->getRepository(Sortie::class);
+        $sortie = $sortieRepo->find($id);
+
+        $entityManager->remove($this->getUser());
+        $entityManager->flush($sortie);
+
+        $this->addFlash('Succes', 'Vous vous êtes bien désisté !');
+
+        return $this->redirectToRoute('home');
     }
 }
