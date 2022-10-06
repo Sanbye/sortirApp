@@ -48,11 +48,9 @@ class MainController extends AbstractController
             $filtres->setChoiceNoInscrit($sortiesForm->get('choiceNoInscrit')->getData());
             $filtres->setChoiceEnd($sortiesForm->get('choiceEnd')->getData());
 
-            if($filtres == null) {
+
                 $sorties = $sortieRepository->findAll();
-            } else {
-                $sorties = $sortieRepository->findAllWithQueries($filtres, $participant);
-            }
+
 
 
             return $this->render('main/index.html.twig', [
@@ -60,6 +58,7 @@ class MainController extends AbstractController
                 'sorties' => $sorties,
                 'sortiesForm' => $sortiesForm->createView(),
             ]);
+
 
     }
 }
