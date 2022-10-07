@@ -23,26 +23,26 @@ class CreateFormSortie extends AbstractType
 
         $builder
             ->add('nom', TextType::class, ['label' => 'Nom de la sortie : ',
-                'required'=>false])
+                'required'=> true])
             ->add('dateHeureDebut', DateTimeType::class, ['html5' => true,
                 'widget' => 'single_text',
                 'label' => 'Date et heure de la sortie : ',
-                'required' => false])
+                'required' => true])
             ->add('dateLimiteInscription', DateType::class, ['html5' => true,
                 'widget' => 'single_text',
                 'label' => 'Date limite d inscription : ',
-                'required' => false])
+                'required' => true])
             ->add('nbInscriptionsMax', IntegerType::class, ['label' => 'Nombre de places : ',
-                'required'=>false])
+                'required'=> true])
             ->add('duree', IntegerType::class, ['label' => 'Durée : ',
-                'required'=>false])
+                'required'=> true])
             ->add('infosSortie', TextareaType::class, ['label' => 'Description et infos : ',
-                'required'=>false])
+                'required'=> true])
             ->add('Lieu', EntityType::class, [
                 'class' => Lieu::class,
                 'label' => 'Lieu : ',
                 'choice_label' => 'nom',
-                'required'=>false
+                'required'=> true
             ])
             ->add('enregistrer', SubmitType::class, [
                 'label' => 'Enregistrer'
