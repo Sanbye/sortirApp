@@ -4,10 +4,6 @@
 
 {% block body %}
 
-    <header>
-        <h1><a href="{{ path('home')}}"><img src="{{ asset('img/logo.png') }}" alt="logo site sortirApp"/></a>sortirApp la famille</h1>
-    </header>
-
     <form class="login" method="post">
         {% if error %}
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -28,20 +24,22 @@
                 <label for="inputPassword">Mot de passe : </label>
                 <input type="password" name="password" id="inputPassword" autocomplete="current-password" required>
             </div>
-        </div>
 
-        <button class="login_btn" type="submit">
-            Connexion
-        </button>
+            <button class="login_btn" type="submit">
+                Connexion
+            </button>
+
+            <div class="checkbox_mb-3">
+                <label>
+                    <input type="checkbox" name="_remember_me"> Remember me
+                </label>
+            </div>
+
+        </div>
 
         <input type="hidden" name="_csrf_token"
                value="{{ csrf_token('authenticate') }}">
 
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
-        </div>
 
     </form>
 {% endblock %}

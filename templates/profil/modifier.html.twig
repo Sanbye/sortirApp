@@ -4,15 +4,28 @@
 
 {% block body %}
 
+    <section style="display: flex">
+
+    <img class="hidden_pain" src="{{ asset("img/5616.webp") }}">
+
     {{ form_start(profilForm) }}
+
+    <div class="modifier_profil_box">
+
     {{ form_widget(profilForm) }}
 
         <div class="profil_row">
+
             <button class="profil_btn" type="submit">Enregistrer</button>
+
             <button class="profil_btn" type="button">
                 <a class="return_btn" href="{{ path('home') }}">Annuler</a>
             </button>
         </div>
+
+    </div>
+
+    </section>
 
     {{ form_end(profilForm) }}
 

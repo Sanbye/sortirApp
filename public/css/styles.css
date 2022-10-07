@@ -1,23 +1,109 @@
 @import "normalize.css";
 
 body {
-  padding: 10px;
-
+  background-image: linear-gradient(to bottom, #fff1eb 0%, rgba(185, 224, 248, 0.32) 100%);
 }
 
 main {
   min-height: 72vh;
+  margin: 25px;
 }
 
-a,
-a:link {
+/*Lien animation*/
+a, a:link {
+  display: flex;
+  align-items: center;
   text-decoration: none;
   color: cadetblue;
+  position: relative;
+}
+
+nav a::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: cadetblue;
+  transform: scaleX(0);
+  width: 100%;
+  height: 3px;
+  transform-origin: top right;
+
+  transition: transform 0.6s cubic-bezier(.75,.04,.45,.77);
+}
+
+nav a::after{
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: cadetblue;
+  transform: scaleX(0);
+  width: 100%;
+  height: 3px;
+  transform-origin: bottom left;
+
+  transition: transform 0.6s cubic-bezier(.75,.04,.45,.77);
+}
+
+nav a:hover::before{
+  transform: scaleX(1);
+}
+
+nav a:hover::after{
+  transform: scaleX(1);
+}
+
+table a::after{
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: cadetblue;
+  transform: scaleX(0);
+  width: 100%;
+  height: 1px;
+  transform-origin: bottom left;
+
+  transition: transform 0.6s cubic-bezier(.75,.04,.45,.77);
+}
+
+table a:hover::after{
+  transform: scaleX(1);
+}
+
+/*Lien animation*/
+
+/*
+    NAV
+ */
+
+/*
+   Logo animation
+*/
+
+.logo{
+  height: 70px;
+  margin: 5px;
+  border-radius: 50%;
+  background-color: yellowgreen;
+  border: solid 3px;
+  transition: border, transform 1s cubic-bezier(.4,.24,.86,.51);
+}
+
+.logo:hover{
+  transform: rotate(360deg);
 }
 
 /*
-    nav
- */
+   Logo animation
+*/
+
+
+nav h1{
+  display: flex;
+  text-decoration: cadetblue underline;
+}
 
 nav,
 nav ul,
@@ -26,18 +112,24 @@ ul li {
   list-style: none;
   justify-content: center;
   align-items: center;
+  font-size: 30px;
   padding: 0;
+  margin: 0;
+  text-decoration: none;
 }
 
 .nav_div {
   display: flex;
   width: 100%;
   justify-content: space-between;
+  background-color: #dee2b6;
+  padding: 0;
+  margin: 0;
 }
 
 .nav_side {
   display: flex;
-  width: 25%;
+  width: 40%;
   justify-content: space-evenly;
 }
 
@@ -53,28 +145,43 @@ ul li {
 
 .login {
   display: flex;
-  height: 91vh;
+  height: 70vh;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
 .login_div {
+  background-color: #dee2b6;
   display: flex;
   flex-direction: column;
-  width: 300px;
-  padding: 0 0 10px 0;
+  justify-content: center;
+  width: 400px;
+  height: 300px;
+  padding:  30px ;
+  border: 2px solid;
+  border-radius: 20%;
 }
 
 .login_input {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 20px;
+  font-size: 18px;
+  font-weight: bold;
+
 }
 
 .login_btn {
-  width: 7%;
-  height: 7%;
+  width: 200px;
+  height: 50px;
+  margin: 20px;
+
+}
+
+.checkbox_mb-3{/*bouton remember me*/
+  margin-left: 20px;
 }
 
 /*
@@ -86,6 +193,15 @@ ul li {
   flex-direction: column;
   align-items: flex-end;
   padding: 0.5vw;
+}
+
+.main_date>div{
+  display: flex;
+  flex-direction: column;
+  padding: 3px;
+  border: solid 1px;
+  border-radius: 20% 10% / 20% 10%;
+  background-color: #dee2b6;
 }
 
 /*
@@ -101,10 +217,12 @@ ul li {
   flex-direction: column;
   justify-content: center;
   width: 100%;
+  margin-top: 50px;
 }
 
 .sorties_row {
   display: flex;
+  min-height: 40px;
   width: 100%;
 }
 
@@ -117,7 +235,17 @@ ul li {
   border: solid 1px;
 }
 
+.array_affichage_sortie{
+  background-color: #dee2b6;
+  margin: 100px;
+  border: solid 2px;
+  border-radius: 50px;
+  border-collapse: separate;
+  border-spacing: 10px 15px;
+}
+
 .array_affichage_sortie tr > td {
+  min-height: 20px;
   min-width: 150px;
   max-width: 550px;
 }
@@ -126,6 +254,75 @@ ul li {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.wrap_section{
+  display: flex;
+  max-width: 1000px;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+
+  margin-left: 200px;
+  margin-top: 100px;
+}
+.wrap_section button{
+  margin: 50px;
+  min-height: 40px;
+  min-width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.description_sortie{
+  display: block;
+  max-height: 70px;
+  overflow: auto;
+}
+
+.green_box{
+  background-color: #dee2b6;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 400px;
+  height: 300px;
+  padding:  30px ;
+  border: 2px solid;
+  border-radius: 20%;
+}
+
+.annuler_sortie_div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+  font-size: 18px;
+
+}
+
+.annuler_form{
+  display: flex
+}
+
+#annuler_sortie_form_infosSortie{
+  max-height: 70px;
+  max-width: 300px;
+  height: 70px;
+  width: 300px;
+  overflow: auto;
+}
+
+.boutons_annuler_sortie{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.boutons_annuler_sortie>span{
+
+  margin: 20px;
 }
 
 /*
@@ -144,15 +341,44 @@ ul li {
 
 .profil_row {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
-  width: 260px;
+  width: 400px;
   padding: 1em;
+  margin-top: 30px ;
 }
 
 .profil_btn {
-  width: 100%;
+  width: 100px;
   height: 200%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#profil_form>div{
+  display: flex;
+  flex-direction: column;
+}
+
+#profil_form>div>label{
+  align-self: flex-start;
+}
+
+#profil_form>div>input{
+  align-self: flex-end;
+}
+
+.modifier_profil_box{
+  background-color: #dee2b6;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 400px;
+  height: 500px;
+  padding:  30px ;
+  border: 2px solid;
+  border-radius: 70px;
 }
 
 .return_btn {
@@ -161,4 +387,11 @@ ul li {
 
 .hidden {
   display: none;
+}
+
+.hidden_pain{
+  height: 300px;
+  margin: 40px;
+  border: solid 1px;
+  border-radius: 50%;
 }

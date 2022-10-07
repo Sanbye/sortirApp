@@ -5,48 +5,55 @@
 {% block body %}
 
     {{ form_start(sortieCreateForm) }}
-    <div>
-        {{ form_label(sortieCreateForm.nom) }}
-        {{ form_widget(sortieCreateForm.nom) }}
 
-        {{ form_label(sortieCreateForm.dateHeureDebut) }}
-        {{ form_widget(sortieCreateForm.dateHeureDebut) }}
+    <section class="wrap_section">
 
-        {{ form_label(sortieCreateForm.dateLimiteInscription) }}
-        {{ form_widget(sortieCreateForm.dateLimiteInscription) }}
+        <div class="green_box">
+            {{ form_label(sortieCreateForm.nom) }}
+            {{ form_widget(sortieCreateForm.nom) }}
 
-        {{ form_label(sortieCreateForm.nbInscriptionsMax) }}
-        {{ form_widget(sortieCreateForm.nbInscriptionsMax) }}
+            {{ form_label(sortieCreateForm.dateHeureDebut) }}
+            {{ form_widget(sortieCreateForm.dateHeureDebut) }}
 
-        {{ form_label(sortieCreateForm.duree) }}
-        {{ form_widget(sortieCreateForm.duree) }}
+            {{ form_label(sortieCreateForm.dateLimiteInscription) }}
+            {{ form_widget(sortieCreateForm.dateLimiteInscription) }}
 
-        {{ form_label(sortieCreateForm.infosSortie) }}
-        {{ form_widget(sortieCreateForm.infosSortie) }}
-    </div>
+            {{ form_label(sortieCreateForm.nbInscriptionsMax) }}
+            {{ form_widget(sortieCreateForm.nbInscriptionsMax) }}
 
-    <div>
-        <h2>Campus : {{ app.user.campus.nom }}</h2>
+            {{ form_label(sortieCreateForm.duree) }}
+            {{ form_widget(sortieCreateForm.duree) }}
 
-        {{ form_label(sortieCreateForm.Lieu) }}
-        {{ form_widget(sortieCreateForm.Lieu) }}
+            {{ form_label(sortieCreateForm.infosSortie) }}
+            {{ form_widget(sortieCreateForm.infosSortie) }}
+        </div>
 
-        <p>Rue : </p>
-        <p>Code postal : </p>
+        <div class="green_box">
+            <h2>Campus : {{ app.user.campus.nom }}</h2>
 
-    </div>
+            {{ form_label(sortieCreateForm.Lieu) }}
+            {{ form_widget(sortieCreateForm.Lieu) }}
 
-    <div class="profil_row">
+            <p>Rue : </p>
+            <p>Code postal : </p>
+
+        </div>
+
+
         {{ form_row(sortieCreateForm.enregistrer) }}
+
         {{ form_row(sortieCreateForm.publier) }}
-        <button class="profil_btn" type="button">
+
+        <button type="button">
             <a class="return_btn" href="{{ path('sortie_supprimer', {'id' : sortie.id}) }}">Supprimer la sortie</a>
         </button>
-        <button class="profil_btn" type="button">
+
+        <button type="button">
             <a class="return_btn" href="{{ path('home') }}">Annuler</a>
         </button>
-    </div>
+
+
+    </section>
 
     {{ form_end(sortieCreateForm) }}
-
 {% endblock %}

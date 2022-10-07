@@ -19,7 +19,10 @@ class AnnulerSortieFormType extends AbstractType
                 [
                     'required' => 'true',
                     'data' => '',
-                    'label' => 'Motif : '
+                    'label' => 'Motif : ',
+                    'attr' => [
+                        'class' => 'annuler_form',
+                    ],
                 ]
             );
     }

@@ -3,7 +3,7 @@
         {% if is_granted('ROLE_ADMIN') %}
         <ul>
             <li>
-                <h1><a href="{{ path('login')}}"><img src="{{ asset('img/logo.png') }}" alt="logo site sortirApp"/></a>sortirApp la famille</h1>
+                <h1><a href="{{ path('login')}}"><img  class="logo" src="{{ asset('img/logo.png') }}" alt="logo site sortirApp"/></a>sortirApp</h1>
             </li>
         </ul>
         <ul class = "nav_side_admin">
@@ -16,7 +16,7 @@
         {% elseif is_granted('ROLE_USER') %}
             <ul>
                 <li>
-                    <h1><a href="{{ path('login')}}"><img src="{{ asset('img/logo.png') }}" alt="logo site sortirApp"/></a>sortirApp la famille</h1>
+                    <h1><a href="{{ path('login')}}"><img  class="logo" src="{{ asset('img/logo.png') }}" alt="logo site sortirApp"/></a>sortirApp</h1>
                 </li>
             </ul>
             <ul class = "nav_side">
@@ -24,6 +24,9 @@
                 <li><a href="{{ path('profil_modifier') }}" title="Mon profil">Mon profil</a></li>
                 <li><a href="{{ path('logout') }}" title="Se déconnecter">Se déconnecter</a></li>
             </ul>
+
+        {% elseif is_granted('PUBLIC_ACCESS')%}
+            <h1><a href="{{ path('home')}}"><img class="logo"  src="{{ asset('img/logo.png') }}" alt="logo site sortirApp"/></a>sortirApp</h1>
         {% endif %}
     </div>
 </nav>

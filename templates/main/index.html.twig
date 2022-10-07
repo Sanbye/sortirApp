@@ -7,13 +7,15 @@
     {#INFOS CLIENT#}
 
     <div class="main_date">
-        <span>Date du jour :  {{ "now"|date("d-m-Y") }}</span>
-        <span>Participant : {{ app.user.nom|capitalize }} {{ app.user.prenom|first }}.</span>
+        <div>
+            <span>Date du jour :  {{ "now"|date("d-m-Y") }}</span>
+            <span>Participant : {{ app.user.nom|capitalize }} {{ app.user.prenom|first }}.</span>
+        </div>
     </div>
 
     {#FILTRE SORTIES#}
 
-    <div>
+    <div class="green_box">
         <h3>Filtrer les sorties</h3>
         {{ form_start(sortiesForm) }}
         {{ form_widget(sortiesForm) }}
