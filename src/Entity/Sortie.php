@@ -21,6 +21,7 @@ class Sortie
     private ?string $nom = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\LessThanOrEqual(propertyPath: 'dateLimiteInscription')]
     private ?\DateTimeInterface $dateHeureDebut = null;
 
     #[ORM\Column]
