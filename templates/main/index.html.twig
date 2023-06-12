@@ -6,22 +6,31 @@
 
     {#INFOS CLIENT#}
 
-    <div class="main_date">
-        <div>
+    <div class="main">
+
+        <div class="green_box">
+            <h3>Filtrer les sorties</h3>
+            {{ form_start(sortiesForm) }}
+            {{ form_widget(sortiesForm) }}
+                <button type="submit">Rechercher</button>
+            {{ form_end(sortiesForm) }}
+        </div>
+
+
+        <div class="user_info">
             <span>Date du jour :  {{ "now"|date("d-m-Y") }}</span>
             <span>Participant : {{ app.user.nom|capitalize }} {{ app.user.prenom|first }}.</span>
+
+            <a href="{{ path('sortie_creer') }}">
+                <button>
+                    Créer une sortie
+                </button>
+            </a>
         </div>
     </div>
 
     {#FILTRE SORTIES#}
 
-    <div class="green_box">
-        <h3>Filtrer les sorties</h3>
-        {{ form_start(sortiesForm) }}
-        {{ form_widget(sortiesForm) }}
-        <button type="submit">Rechercher</button>
-        {{ form_end(sortiesForm) }}
-    </div>
 
     {#TABLEAU DES SORTIES#}
 
@@ -87,11 +96,7 @@
             {% endfor %}
         </table>
     </div>
-        <a href="{{ path('sortie_creer') }}">
-            <button>
-                Créer une sortie
-            </button>
-        </a>
+        
 
 
 {% endblock %}

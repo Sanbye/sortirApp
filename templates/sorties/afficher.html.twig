@@ -7,11 +7,19 @@
     <section class = "main_section">
         <table class = "array_affichage_sortie">
 
+            <colgroup>
+                <col class="colHead">
+                <col class="colBody">
+                <col class="colHead">
+                <col class="colBody">
+
+            <colgroup/>
+
             <tr>
-                <td>Nom de la sortie :</td>
-                <td>{{ sortie.nom}}</td>
-                <td>Campus : </td>
-                <td>{{ sortie.campus.nom }}</td>
+                <td  scope="col">Nom de la sortie :</td>
+                <td  scope="col">{{ sortie.nom}}</td>
+                <td  scope="col">Campus : </td>
+                <td  scope="col">{{ sortie.campus.nom }}</td>
             </tr>
 
             <tr>
@@ -54,7 +62,7 @@
 
 
     <div>
-        <table class = "array_participants_sortie">
+        <table class = "sorties_table" style="width: 400px">
 
             <caption>
                 <h3>Liste des participants :</h3>
